@@ -1,0 +1,46 @@
+@import '../../node_modules/vue3-openlayers/dist/vue3-openlayers.css';
+
+.map-container {
+    position: relative;
+
+    &.is-not-dirty {
+        filter: grayscale(1);
+    }
+
+    &.with-marker {
+        transition: all 300ms;
+
+        &:after {
+            position: absolute;
+            content: '';
+            width: 46px;
+            height: 46px;
+            top: calc(50% - 46px);
+            left: calc(50% - 23px);
+            background: url('/vendor/nova-map-field/dist/images/ic-pin-1.png') center;
+            background-size: cover !important;
+        }
+
+        &.marker-icon-2 {
+            &:after {
+                background-image: url('/vendor/nova-map-field/dist/images/ic-pin-2.png');
+            }
+        }
+
+        &.marker-icon-3 {
+            &:after {
+                background-image: url('/vendor/nova-map-field/dist/images/ic-pin-3.png');
+            }
+        }
+    }
+}
+
+.map-location-information {
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+
+    svg {
+        margin-right: 4px;
+    }
+}
