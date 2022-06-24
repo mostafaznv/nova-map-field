@@ -7,7 +7,6 @@
 
 
 Using this package, you can use spatial fields in Laravel Nova.
-This package uses 
 
 
 ----
@@ -31,7 +30,7 @@ This package uses
     composer require mostafaznv/nova-map-field
     ```
 
-2. ##### Publish config file:
+2. ##### Publish config and assets:
     ```shell
     php artisan vendor:publish --provider="Mostafaznv\NovaMapField\NovaMapFieldServiceProvider"
     ```
@@ -121,34 +120,33 @@ This package uses
 
 ## Map Field Methods
 
-| method                | Arguments                           | description                                                       |
-|-----------------------|-------------------------------------|-------------------------------------------------------------------|
-| defaultLatitude       | latitude `float`                    | Specifies location's latitude when map loads                      |
-| defaultLongitude      | longitude `float`                   | Specifies location's longitude when map loads                     |
-| zoom                  | zoom `integer`                      | Specifies default map zoom                                        |
-| withoutZoomControl    | status `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not |
-| withoutZoomSlider     | status `bool` `default: true`       | Specifies whether zoom slider should display on map or not        |
-| withFullScreenControl | status `bool` `default: true`       | Specifies whether full screen button should display on map or not |
-| mapHeight             | height `integer` `default: 400`     | Specifies map height                                              |
-| markerIcon            | icon `integer` `available: 1, 2, 3` | Specifies marker icon                                             |
-| required              |                                     | Makes map field required                                          |
-| requiredOnCreate      | status `bool` `default: true`       | Makes field required on creation                                  |
-| requiredOnUpdate      | status `bool` `default: true`       | Makes field required on update                                    |
-| cache                 | Closure                             | **Main** part of each cache entity. defines cache content         |
+| method                | Arguments                                | description                                                       |
+|-----------------------|------------------------------------------|-------------------------------------------------------------------|
+| defaultLatitude       | latitude <br> `float`                    | Specifies latitude of map on page load                            |
+| defaultLongitude      | longitude <br> `float`                   | Specifies longitude of map on page load                           |
+| zoom                  | zoom <br> `integer`                      | Specifies default map zoom                                        |
+| withoutZoomControl    | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not |
+| withoutZoomSlider     | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not        |
+| withFullScreenControl | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not |
+| mapHeight             | height <br> `integer` `default: 400`     | Map's height                                                      |
+| markerIcon            | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                       |
+| required              |                                          | Makes field required                                              |
+| requiredOnCreate      | status <br> `bool` `default: true`       | Makes field required on creation                                  |
+| requiredOnUpdate      | status <br> `bool` `default: true`       | Makes field required on update                                    |
 
 
 ## Config Properties
 
-| Method                       | Type | Default | Description                                               |
-|------------------------------|------|---------|-----------------------------------------------------------|
-| default-latitude             | bool | 0       | Default latitude of map                                   |
-| default-longitude            | bool | 0       | Default longitude of map                                  |
-| zoom                         | int  | 12      | Default zoom of map                                       |
-| controls.zoom-control        | bool | true    | Specifies if map should display zoom controls or not      |
-| controls.zoom-slider         | bool | true    | Specifies if map should display zoom slider or not        |
-| controls.full-screen-control | bool | false   | Specifies if map should display full screen button or not |
-| map-height                   | int  | 400     | Specifies map height                                      |
-| icon                         | int  | 1       | Specifies marker icon. available values: `1, 2, 3`        |
+| Method                       | Type | Default | Description                                                                |
+|------------------------------|------|---------|----------------------------------------------------------------------------|
+| default-latitude             | bool | 0       | Default latitude of map                                                    |
+| default-longitude            | bool | 0       | Default longitude of map                                                   |
+| zoom                         | int  | 12      | Default zoom of map                                                        |
+| controls.zoom-control        | bool | true    | Specifies if map should display zoom controls (zoom in/out buttons) or not |
+| controls.zoom-slider         | bool | true    | Specifies if map should display zoom slider or not                         |
+| controls.full-screen-control | bool | false   | Specifies if map should display full screen button or not                  |
+| map-height                   | int  | 400     | Specifies map height                                                       |
+| icon                         | int  | 1       | Specifies marker icon. available values: `1, 2, 3`                         |
 
 
 ## Complete Example
