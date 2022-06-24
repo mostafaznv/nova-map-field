@@ -147,6 +147,13 @@ Using this package, you can use spatial fields in Laravel Nova.
 | map-height                   | int  | 400     | Specifies map height                                                       |
 | icon                         | int  | 1       | Specifies marker icon. available values: `1, 2, 3`                         |
 
+----
+
+## Using Spatial Columns over Application
+
+This package uses [Laravel Eloquent Spatial](https://github.com/MatanYadaev/laravel-eloquent-spatial/) under the hood. to use columns and querying them over the application, please read **Laravel Eloquent Spatial** documentation
+
+----
 
 ## Complete Example
 ```php

@@ -14,7 +14,8 @@
     "license": "MIT",
     "require": {
         "illuminate/support": "^8.0|^9.0",
-        "laravel/nova": "^4.0"
+        "laravel/nova": "^4.0",
+        "matanyadaev/laravel-eloquent-spatial": "^1.0"
     },
     "autoload": {
         "psr-4": {
