@@ -1,6 +1,5 @@
 # Map Field for Laravel Nova
 
-[![Quality Score](https://img.shields.io/scrutinizer/g/mostafaznv/nova-map-field.svg?style=flat-square)](https://scrutinizer-ci.com/g/mostafaznv/nova-map-field)
 [![License](https://img.shields.io/github/license/mostafaznv/nova-map-field?style=flat-square)](https://github.com/mostafaznv/nova-map-field/blob/master/LICENSE)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/mostafaznv/nova-map-field?style=flat-square&logo=packagist)](https://packagist.org/packages/mostafaznv/nova-map-field)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mostafaznv/nova-map-field.svg?style=flat-square&logo=composer)](https://packagist.org/packages/mostafaznv/nova-map-field)
