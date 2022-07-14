@@ -20,18 +20,14 @@
 </template>
 
 <script>
-import LocationSvgIcon from '../other/LocationSvgIcon'
 import LocationDetailModal from '../other/LocationDetailModal'
-import LocationDetail from '../other/LocationDetail'
 import LocationsDetail from '../other/LocationsDetail'
 
 export default {
     props: ['field', 'modalMode'],
     components: {
         LocationsDetail,
-        LocationDetail,
-        LocationDetailModal,
-        LocationSvgIcon
+        LocationDetailModal
     },
     data() {
         return {

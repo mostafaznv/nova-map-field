@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import LocationSvgIcon from '../other/LocationSvgIcon'
 import LocationDetailModal from '../other/LocationDetailModal'
 import LocationDetail from '../other/LocationDetail'
 
@@ -30,8 +29,7 @@ export default {
     props: ['field', 'modalMode'],
     components: {
         LocationDetail,
-        LocationDetailModal,
-        LocationSvgIcon
+        LocationDetailModal
     },
     data() {
         return {
