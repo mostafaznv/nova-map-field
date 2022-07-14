@@ -58,6 +58,7 @@
 <script>
 import {inject} from 'vue'
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import {toLonLat, fromLonLat} from 'ol/proj';
 import {GeoJSON} from 'ol/format'
 import {Fill, Stroke, Style} from 'ol/style'
 import {getCenter} from 'ol/extent'
@@ -81,7 +82,7 @@ export default {
                 crs: {
                     type: 'name',
                     properties: {
-                        name: 'EPSG:4326'
+                        name: 'EPSG:3857'
                     }
                 },
                 features: []
@@ -123,17 +124,17 @@ export default {
 
             if (value.length) {
                 const coordinates = [
-                    value[0].map(v => [v[1], v[0]])
+                    value[0].map(v => fromLonLat([v[1], v[0]]))
                 ]
 
                 this.center = this.initFeatures(coordinates)
                 this.setValue(coordinates)
             }
             else {
-                this.center = [
+                this.center = fromLonLat([
                     this.field.defaultLongitude,
                     this.field.defaultLatitude
-                ]
+                ])
             }
         },
 
@@ -199,7 +200,9 @@ export default {
 
         setValue(coordinates) {
             if (coordinates.length) {
-                this.fieldValue = JSON.stringify(coordinates[0])
+                coordinates = coordinates[0].map(coordinate => toLonLat(coordinate))
+
+                this.fieldValue = JSON.stringify(coordinates)
                 this.setDirty()
             }
         }

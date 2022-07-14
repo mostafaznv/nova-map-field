@@ -22,6 +22,7 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import {toLonLat, fromLonLat} from 'ol/proj';
 import HasMap from '../../mixins/HasMap'
 
 export default {
@@ -45,18 +46,20 @@ export default {
             }
 
             if (value.latitude && value.longitude) {
-                this.center = [
+                const lonLat = fromLonLat([
                     value.longitude,
                     value.latitude
-                ]
+                ])
 
-                this.setValue(value.latitude, value.longitude)
+                this.center = lonLat
+
+                this.setValue(lonLat[1], lonLat[0])
             }
             else {
-                this.center = [
+                this.center = fromLonLat([
                     this.field.defaultLongitude,
                     this.field.defaultLatitude
-                ]
+                ])
             }
         },
 
@@ -65,8 +68,10 @@ export default {
         },
 
         setValue(latitude, longitude) {
+            const lonLat = toLonLat([longitude, latitude])
             const data = {
-                latitude, longitude
+                longitude: lonLat[0],
+                latitude: lonLat[1]
             }
 
             this.isDirty = true

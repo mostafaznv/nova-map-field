@@ -2,7 +2,7 @@ export default {
     data() {
         return {
             center: [0, 0],
-            projection: 'EPSG:4326',
+            projection: 'EPSG:3857',
             zoom: this.field.zoom,
             withZoomControl: this.field.withZoomControl,
             withZoomSlider: this.field.withZoomSlider,
