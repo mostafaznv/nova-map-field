@@ -52,6 +52,7 @@ Using this package, you can use spatial fields in Laravel Nova.
                 $table->string('title', 150);
                 $table->point('location')->nullable();
                 $table->polygon('area')->nullable();
+                $table->multiPolygon('areas')->nullable();
                 $table->timestamps();
             });
         }
@@ -77,7 +78,8 @@ Using this package, you can use spatial fields in Laravel Nova.
     <?php
    
     namespace App\Models;
-    
+   
+    use MatanYadaev\EloquentSpatial\Objects\MultiPolygon;
     use MatanYadaev\EloquentSpatial\Objects\Point;
     use MatanYadaev\EloquentSpatial\Objects\Polygon;
     
@@ -87,7 +89,8 @@ Using this package, you can use spatial fields in Laravel Nova.
 
         protected $casts = [
             'location' => Point::class,
-            'area'     => Polygon::class
+            'area'     => Polygon::class,
+            'areas'    => MultiPolygon::class
         ];
     }
     ```
@@ -98,6 +101,7 @@ Using this package, you can use spatial fields in Laravel Nova.
     
     namespace App\Nova\Resources;
     
+    use Mostafaznv\NovaMapField\Fields\MapMultiPolygonField;
     use Mostafaznv\NovaMapField\Fields\MapPointField;
     use Mostafaznv\NovaMapField\Fields\MapPolygonField;
     
@@ -107,7 +111,8 @@ Using this package, you can use spatial fields in Laravel Nova.
         {
             return [
                 MapPointField::make('location'),
-                MapPolygonField::make('area')
+                MapPolygonField::make('area'),
+                MapMultiPolygonField::make('areas'),
             ];
         }
     }
@@ -167,7 +172,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use App\Models\Location as Model;
 use Mostafaznv\NovaMapField\Fields\MapPointField;
-use Mostafaznv\NovaMapField\Fields\MapPolygonField;
 
 class Location extends Resource
 {

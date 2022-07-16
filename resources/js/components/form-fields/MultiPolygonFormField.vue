@@ -14,7 +14,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
-                <ol-source-vector :features="zones">
+                <ol-source-vector ref="source" :features="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
                         @modifyend="onModifyEnd"
@@ -57,29 +57,36 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
-import {toLonLat, fromLonLat} from 'ol/proj';
-import {GeoJSON} from 'ol/format'
 import HasMap from '../../mixins/HasMap'
-import PolygonMixin from "../../mixins/PolygonMixin";
+import PolygonMixin from '../../mixins/PolygonMixin'
+import {fromLonLat, toLonLat} from 'ol/proj'
+import {GeoJSON} from "ol/format";
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
+    data() {
+        return {
+            values: [],
+        }
+    },
     methods: {
         initCenter() {
-            let value = []
+            this.values = []
+            let values = []
 
             if (this.field.value) {
-                value = JSON.parse(this.field.value)
+                values = JSON.parse(this.field.value)
             }
 
-            if (value.length) {
-                const coordinates = [
-                    value[0].map(v => fromLonLat([v[1], v[0]]))
-                ]
+            if (values.length) {
+                const coordinates = values.map(value => {
+                    return value[0].map(v => fromLonLat([v[1], v[0]]))
+                })
 
                 this.center = this.initFeatures(coordinates)
-                this.setValue(coordinates)
+
+                coordinates.forEach(coordinate => this.setValue([coordinate]))
             }
             else {
                 this.center = fromLonLat([
@@ -90,15 +97,15 @@ export default {
         },
 
         initFeatures(coordinates) {
-            this.geoJsonObject.features = [
-                {
+            this.geoJsonObject.features = coordinates.map((c) => {
+                return {
                     type: 'Feature',
                     geometry: {
                         type: 'Polygon',
-                        coordinates
+                        coordinates: [c]
                     }
                 }
-            ]
+            })
 
             this.drawIsEnabled = false
             this.modifyIsEnabled = true
@@ -110,21 +117,25 @@ export default {
             this.zones = new GeoJSON().readFeatures(this.geoJsonObject)
 
             if (this.zones.length) {
-                this.selectedFeatures.push(this.zones[0])
+                this.zones.forEach(zone => this.selectedFeatures.push(zone))
             }
         },
 
-        onModifyEnd(event) {
-            const geometry = event.features.getArray()[0].getGeometry()
+        onModifyEnd() {
+            this.values = []
 
-            this.setValue(geometry.getCoordinates())
+            this.$refs.source.source.getFeatures().forEach((feature) => {
+                this.setValue(feature.getGeometry().getCoordinates())
+            })
         },
 
         setValue(coordinates) {
-            if (coordinates.length) {
-                coordinates = coordinates[0].map(coordinate => toLonLat(coordinate))
+            this.drawIsEnabled = true
 
-                this.fieldValue = JSON.stringify(coordinates)
+            if (coordinates.length) {
+                this.values.push(coordinates[0].map(coordinate => toLonLat(coordinate)))
+
+                this.fieldValue = JSON.stringify(this.values)
                 this.setDirty()
             }
         }

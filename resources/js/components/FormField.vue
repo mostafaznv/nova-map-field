@@ -21,6 +21,14 @@
                     :resource-id="resourceId"
                     :resource-name="resourceName"
                 />
+
+                <multi-polygon-form-field
+                    v-else-if="mapType === 'MULTI_POLYGON'"
+                    v-model="fieldValue"
+                    :field="field"
+                    :resource-id="resourceId"
+                    :resource-name="resourceName"
+                />
             </div>
         </template>
     </default-field>
@@ -30,12 +38,14 @@
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
 import PointFormField from './form-fields/PointFormField'
 import PolygonFormField from './form-fields/PolygonFormField'
+import MultiPolygonFormField from './form-fields/MultiPolygonFormField'
 
 export default {
     mixins: [FormField, HandlesValidationErrors],
     props: ['resourceName', 'resourceId', 'field'],
     components: {
         PolygonFormField,
+        MultiPolygonFormField,
         PointFormField
     },
     data() {
