@@ -4,66 +4,35 @@ namespace Mostafaznv\NovaMapField\Traits;
 
 use Illuminate\Support\Arr;
 use MatanYadaev\EloquentSpatial\Objects\Geometry;
-use MatanYadaev\EloquentSpatial\Objects\Point;
-use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\SpatialBuilder;
 
+/**
+ * @method static SpatialBuilder query()
+ */
 trait HasSpatialColumns
 {
-    private array $supportedSpatialTypes = [
-        Point::class,
-        Polygon::class
-    ];
-
     public function newEloquentBuilder($query): SpatialBuilder
     {
         return new SpatialBuilder($query);
     }
 
-    public function getSpatialColumns(): array
+    public function originalIsEquivalent($key)
     {
-        $columns = [];
-
-        foreach ($this->casts as $key => $cast) {
-            if (in_array($cast, $this->supportedSpatialTypes)) {
-                $columns[] = $key;
-            }
+        if (!array_key_exists($key, $this->original)) {
+            return false;
         }
 
-        return $columns;
-    }
-
-    public function getRawOriginal($key = null, $default = null)
-    {
-        $spatialColumns = $this->getSpatialColumns();
-
-        if (is_null($key)) {
-            foreach ($spatialColumns as $column) {
-                $this->original[$column] = $this->spatialToGeometry($column, $default);
-            }
-        }
-        else if ($this->columnIsSpatial($key, $spatialColumns)) {
-            return $this->spatialToGeometry($key, $default);
+        if (parent::originalIsEquivalent($key)) {
+            return true;
         }
 
-        return Arr::get($this->original, $key, $default);
-    }
+        if ($this->isClassCastable($key) && is_subclass_of($this->getCasts()[$key], Geometry::class)) {
+            $originalGeometry = $this->getOriginal($key);
+            $attributeWkbOrWkt = Arr::get($this->attributes, $key);
 
-    private function spatialToGeometry(string $key, mixed $default = null): ?Geometry
-    {
-        if (isset($this->original[$key])) {
-            return Geometry::fromWkb(Arr::get($this->original, $key, $default));
+            return $this->castAttribute($key, $attributeWkbOrWkt) == $originalGeometry;
         }
 
-        return null;
-    }
-
-    private function columnIsSpatial(string $column, array $spatialColumns = []): bool
-    {
-        if (!count($spatialColumns)) {
-            $spatialColumns = $this->getSpatialColumns();
-        }
-
-        return in_array($column, $spatialColumns);
+        return false;
     }
 }

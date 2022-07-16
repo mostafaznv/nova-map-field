@@ -7,6 +7,7 @@
         "map marker",
         "point",
         "polygon",
+        "multi polygon",
         "spatial",
         "openlayers",
         "nova"
@@ -15,7 +16,7 @@
     "require": {
         "illuminate/support": "^8.0|^9.0",
         "laravel/nova": "^4.0",
-        "matanyadaev/laravel-eloquent-spatial": "^1.0"
+        "matanyadaev/laravel-eloquent-spatial": "^2.0.1"
     },
     "autoload": {
         "psr-4": {
