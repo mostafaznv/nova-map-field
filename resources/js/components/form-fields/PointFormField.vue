@@ -1,6 +1,7 @@
 <template>
     <div class="map-container with-marker" :class="['marker-icon-' + markerIcon, isDirty ? '' : 'is-not-dirty']">
-        <ol-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
+                :style="mapStyles">
             <ol-view
                 @centerChanged="onCenterChanged"
                 :center="center"
@@ -22,12 +23,13 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
-import {toLonLat, fromLonLat} from 'ol/proj';
+import {toLonLat, fromLonLat} from 'ol/proj'
 import HasMap from '../../mixins/HasMap'
+import HasSearchBox from '../../mixins/HasSearchBox'
 
 export default {
-    mixins: [FormField, HandlesValidationErrors, HasMap],
-    props: ['resourceName', 'resourceId', 'field'],
+    mixins: [FormField, HandlesValidationErrors, HasMap, HasSearchBox],
+    props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {
         return {
             isDirty: false,
@@ -35,6 +37,11 @@ export default {
                 longitude: null,
                 latitude: null
             }
+        }
+    },
+    computed: {
+        isReadonly() {
+            return this.readonly === true
         }
     },
     methods: {
@@ -67,6 +74,10 @@ export default {
             this.setValue(center[1], center[0])
         },
 
+        setDirty() {
+            this.isDirty = true
+        },
+
         setValue(latitude, longitude) {
             const lonLat = toLonLat([longitude, latitude])
             const data = {
@@ -74,9 +85,9 @@ export default {
                 latitude: lonLat[1]
             }
 
-            this.isDirty = true
+            this.setDirty()
             this.fieldValue = JSON.stringify(data)
         }
-    },
+    }
 }
 </script>

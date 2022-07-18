@@ -12,6 +12,13 @@
  */
 
 /*!
+ * ol-geocoder - v4.1.2
+ * A geocoder extension for OpenLayers.
+ * https://github.com/jonataswalker/ol-geocoder
+ * Built: Wed Jan 20 2021 10:05:05 GMT-0300 (Brasilia Standard Time)
+ */
+
+/*!
  * vuex v4.0.2
  * (c) 2021 Evan You
  * @license MIT

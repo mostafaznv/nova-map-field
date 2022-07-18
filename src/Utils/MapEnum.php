@@ -1,8 +1,8 @@
 <?php
 
-namespace Mostafaznv\NovaMapField\Enums;
+namespace Mostafaznv\NovaMapField\Utils;
 
-abstract class Enum
+abstract class MapEnum
 {
     public function __construct(protected int|string $value) {}
 
