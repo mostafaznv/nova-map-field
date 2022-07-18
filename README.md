@@ -124,33 +124,54 @@ Using this package, you can use spatial fields in Laravel Nova.
 
 ## Map Field Methods
 
-| method                | Arguments                                | description                                                       |
-|-----------------------|------------------------------------------|-------------------------------------------------------------------|
-| defaultLatitude       | latitude <br> `float`                    | Specifies latitude of map on page load                            |
-| defaultLongitude      | longitude <br> `float`                   | Specifies longitude of map on page load                           |
-| zoom                  | zoom <br> `integer`                      | Specifies default map zoom                                        |
-| withoutZoomControl    | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not |
-| withoutZoomSlider     | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not        |
-| withFullScreenControl | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not |
-| mapHeight             | height <br> `integer` `default: 400`     | Map's height                                                      |
-| markerIcon            | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                       |
-| required              |                                          | Makes field required                                              |
-| requiredOnCreate      | status <br> `bool` `default: true`       | Makes field required on creation                                  |
-| requiredOnUpdate      | status <br> `bool` `default: true`       | Makes field required on update                                    |
+| method                      | Arguments                                | description                                                                |
+|-----------------------------|------------------------------------------|----------------------------------------------------------------------------|
+| defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                     |
+| defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                    |
+| zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                 |
+| withoutZoomControl          | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not          |
+| withoutZoomSlider           | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not                 |
+| withFullScreenControl       | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not          |
+| mapHeight                   | height <br> `integer` `default: 400`     | Map's height                                                               |
+| markerIcon                  | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                                |
+| withSearchBox               | `boolean`                                | Specifies whether map has search box or not                                |
+| searchProvider              | provider `MapSearchProvider`             |                                                                            |
+| searchProviderApiKey        | apiKey `string`                          | Specifies api key for search provider, if needed                           |
+| withAutocompleteSearch      | status `bool` `default: true`            | Specifies whether search results should load immediately or not            |
+| searchAutocompleteMinLength | minLength `int`                          | Specifies the minimum number of characters to trigger search action        |
+| searchAutocompleteTimeout   | timeout `int`                            | Specifies the minimum number of ms to wait before triggering search action |
+| searchLanguage              | language `string`                        | Specifies preferable language                                              |
+| searchPlaceholder           | placeholder `string`                     |                                                                            |
+| searchBoxType               | type `MapSearchBoxType`                  | Using this item, you can specify type of search box (button, or text-field |
+| searchResultLimit           | limit `int`                              | Specifies limit of results                                                 |
+| searchResultKeepOpen        | status `boolean`                         | Specifies whether the results keep opened                                  |
+| requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                           |
+| requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                             |
 
 
 ## Config Properties
 
-| Method                       | Type | Default | Description                                                                |
-|------------------------------|------|---------|----------------------------------------------------------------------------|
-| default-latitude             | bool | 0       | Default latitude of map                                                    |
-| default-longitude            | bool | 0       | Default longitude of map                                                   |
-| zoom                         | int  | 12      | Default zoom of map                                                        |
-| controls.zoom-control        | bool | true    | Specifies if map should display zoom controls (zoom in/out buttons) or not |
-| controls.zoom-slider         | bool | true    | Specifies if map should display zoom slider or not                         |
-| controls.full-screen-control | bool | false   | Specifies if map should display full screen button or not                  |
-| map-height                   | int  | 400     | Specifies map height                                                       |
-| icon                         | int  | 1       | Specifies marker icon. available values: `1, 2, 3`                         |
+| Method                         | Type              | Default               | Description                                                                                    |
+|--------------------------------|-------------------|-----------------------|------------------------------------------------------------------------------------------------|
+| default-latitude               | bool              | 0                     | Default latitude of map                                                                        |
+| default-longitude              | bool              | 0                     | Default longitude of map                                                                       |
+| zoom                           | int               | 12                    | Default zoom of map                                                                            |
+| controls.zoom-control          | bool              | true                  | Specifies if map should display zoom controls (zoom in/out buttons) or not                     |
+| controls.zoom-slider           | bool              | true                  | Specifies if map should display zoom slider or not                                             |
+| controls.full-screen-control   | bool              | false                 | Specifies if map should display full screen button or not                                      |
+| map-height                     | int               | 400                   | Specifies map height                                                                           |
+| icon                           | int               | 1                     | Specifies marker icon. available values: `1, 2, 3`                                             |
+| search.enable                  | bool              | true                  | Using this item, you can toggle displaying search box on maps                                  |
+| search.provider                | MapSearchProvider | OSM                   | Specifies search provider available providers: `OSM, MAPQUEST, PHOTON, PELIAS, BING, OPENCAGE` |
+| search.api-key                 | string            | ''                    | Specifies API key if required                                                                  |
+| search.autocomplete            | boolean           | false                 | Using this item, you can toggle autocomplete feature for search box                            |
+| search.autocomplete-min-length | int               | 2                     | The minimum number of characters to trigger search                                             |
+| search.autocomplete-timeout    | int               | 200                   | The minimum number of ms to wait before triggering search action                               |
+| search.language                | string            | en-US                 | Specifies preferable language                                                                  |
+| search.placeholder             | string            | Search for an address | Specifies placeholder for text input                                                           |
+| search.box-type                | MapSearchBoxType  | TEXT_FIELD            | Specifies type of search box. available types: `BUTTON, TEXT_FIELD`                            |
+| search.limit                   | int               | 5                     | Specifies limit of results                                                                     |
+| search.keep-open               | boolean           | false                 | Specifies Whether the results keep opened                                                      |
 
 ----
 
@@ -171,6 +192,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use App\Models\Location as Model;
+use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
+use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
 use Mostafaznv\NovaMapField\Fields\MapPointField;
 
 class Location extends Resource
@@ -195,6 +218,16 @@ class Location extends Resource
                 ->withFullScreenControl()
                 ->mapHeight(360)
                 ->markerIcon(3)
+                ->searchProvider(MapSearchProvider::OSM())
+                ->searchProviderApiKey('api-key')
+                ->withAutocompleteSearch()
+                ->searchAutocompleteMinLength(4)
+                ->searchAutocompleteTimeout(500)
+                ->searchLanguage('fa-IR')
+                ->searchPlaceholder('Placeholder ...')
+                ->searchBoxType(MapSearchBoxType::BUTTON())
+                ->searchResultLimit(3)
+                ->searchResultKeepOpen(true)
                 ->required()
                 ->requiredOnCreate()
                 ->requiredOnUpdate()

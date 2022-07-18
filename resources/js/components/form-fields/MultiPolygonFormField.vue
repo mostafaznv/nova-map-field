@@ -1,6 +1,6 @@
 <template>
     <div class="map-container" :class="['marker-icon-' + markerIcon, isDirty ? '' : 'is-not-dirty']">
-        <ol-map @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
             <ol-view
                 @centerChanged="setDirty"
                 :center="center"
@@ -61,9 +61,10 @@ import HasMap from '../../mixins/HasMap'
 import PolygonMixin from '../../mixins/PolygonMixin'
 import {fromLonLat, toLonLat} from 'ol/proj'
 import {GeoJSON} from "ol/format";
+import HasSearchBox from "../../mixins/HasSearchBox";
 
 export default {
-    mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin],
+    mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {
         return {

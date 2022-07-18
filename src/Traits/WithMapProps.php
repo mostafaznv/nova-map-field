@@ -2,6 +2,9 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
+use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
+use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
+
 trait WithMapProps
 {
     private ?float $defaultLatitude;
@@ -16,6 +19,18 @@ trait WithMapProps
 
     private int $markerIcon;
 
+    private bool              $showSearchBox;
+    private MapSearchProvider $searchProvider;
+    private string            $searchProviderApiKey;
+    private bool              $searchAutocomplete;
+    private int               $searchAutocompleteMinLength;
+    private int               $searchAutocompleteTimeout;
+    private string            $searchLanguage;
+    private string            $searchPlaceholder;
+    private MapSearchBoxType  $searchBoxType;
+    private int               $searchResultLimit;
+    private bool              $searchResultKeepOpen;
+
     private bool $required         = false;
     private bool $requiredOnCreate = false;
     private bool $requiredOnUpdate = false;
@@ -26,6 +41,7 @@ trait WithMapProps
         parent::__construct($name, $attribute, $resolveCallback);
 
         $config = config('nova-map-field');
+        $searchConfig = $config['search'];
 
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
@@ -35,6 +51,18 @@ trait WithMapProps
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = $config['icon'];
+
+        $this->showSearchBox = $searchConfig['enable'];
+        $this->searchProvider = $searchConfig['provider'];
+        $this->searchProviderApiKey = $searchConfig['api-key'];
+        $this->searchAutocomplete = $searchConfig['autocomplete'];
+        $this->searchAutocompleteMinLength = $searchConfig['autocomplete-min-length'];
+        $this->searchAutocompleteTimeout = $searchConfig['autocomplete-timeout'];
+        $this->searchLanguage = $searchConfig['language'];
+        $this->searchPlaceholder = __($searchConfig['placeholder']);
+        $this->searchBoxType = $searchConfig['box-type'];
+        $this->searchResultLimit = $searchConfig['limit'];
+        $this->searchResultKeepOpen = $searchConfig['keep-open'];
     }
 
 
@@ -96,6 +124,83 @@ trait WithMapProps
         return $this;
     }
 
+    public function withSearchBox(bool $status = true): self
+    {
+        $this->showSearchBox = $status;
+
+        return $this;
+    }
+
+    public function searchProvider(MapSearchProvider $provider): self
+    {
+        $this->searchProvider = $provider;
+
+        return $this;
+    }
+
+    public function searchProviderApiKey(string $apiKey): self
+    {
+        $this->searchProviderApiKey = $apiKey;
+
+        return $this;
+    }
+
+    public function withAutocompleteSearch(bool $status = true): self
+    {
+        $this->searchAutocomplete = $status;
+
+        return $this;
+    }
+
+    public function searchAutocompleteMinLength(int $minLength): self
+    {
+        $this->searchAutocompleteMinLength = $minLength;
+
+        return $this;
+    }
+
+    public function searchAutocompleteTimeout(int $timeout): self
+    {
+        $this->searchAutocompleteTimeout = $timeout;
+
+        return $this;
+    }
+
+    public function searchLanguage(string $language): self
+    {
+        $this->searchLanguage = $language;
+
+        return $this;
+    }
+
+    public function searchPlaceholder(string $placeholder): self
+    {
+        $this->searchPlaceholder = $placeholder;
+
+        return $this;
+    }
+
+    public function searchBoxType(MapSearchBoxType $type): self
+    {
+        $this->searchBoxType = $type;
+
+        return $this;
+    }
+
+    public function searchResultLimit(int $limit): self
+    {
+        $this->searchResultLimit = $limit;
+
+        return $this;
+    }
+
+    public function searchResultKeepOpen(bool $status): self
+    {
+        $this->searchResultKeepOpen = $status;
+
+        return $this;
+    }
+
     public function required($callback = true): self
     {
         $this->required = true;
@@ -131,6 +236,19 @@ trait WithMapProps
             'withFullScreenControl' => $this->withFullScreenControl,
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,
+            'search'                => [
+                'isEnabled'              => $this->showSearchBox,
+                'provider'              => $this->searchProvider->getValue(),
+                'apiKey'                => $this->searchProviderApiKey,
+                'withAutocomplete'      => $this->searchAutocomplete,
+                'autocompleteMinLength' => $this->searchAutocompleteMinLength,
+                'autocompleteTimeout'   => $this->searchAutocompleteTimeout,
+                'language'              => $this->searchLanguage,
+                'placeholder'           => $this->searchPlaceholder,
+                'boxType'               => $this->searchBoxType->getValue(),
+                'resultLimit'           => $this->searchResultLimit,
+                'resultKeepOpen'        => $this->searchResultKeepOpen
+            ],
         ]);
     }
 }
