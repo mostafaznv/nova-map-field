@@ -17,7 +17,11 @@ trait WithMapProps
 
     private int $mapHeight;
 
-    private int $markerIcon;
+    /**
+     * @readonly
+     */
+    private string $markerIconPath = '/vendor/nova-map-field/dist/images/';
+    private string $markerIcon;
 
     private bool              $showSearchBox;
     private MapSearchProvider $searchProvider;
@@ -50,7 +54,7 @@ trait WithMapProps
         $this->withZoomSlider = $config['controls']['zoom-slider'];
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
-        $this->markerIcon = $config['icon'];
+        $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
 
         $this->showSearchBox = $searchConfig['enable'];
         $this->searchProvider = $searchConfig['provider'];
@@ -111,15 +115,6 @@ trait WithMapProps
     public function mapHeight(int $height): self
     {
         $this->mapHeight = $height;
-
-        return $this;
-    }
-
-    public function markerIcon(int $icon): self
-    {
-        if (in_array($icon, [1, 2, 3])) {
-            $this->markerIcon = $icon;
-        }
 
         return $this;
     }

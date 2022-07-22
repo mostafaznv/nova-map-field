@@ -3,7 +3,7 @@
         <template #value>
             <div class="map-detail-field">
                 <template v-if="mapType === 'POINT'">
-                    <point-form-field class="readonly" :field="field" :readonly="true" />
+                    <point-form-field :field="field" :readonly="true" />
                     <point-index-field class="mt-3" :field="field" :modal-mode="true" />
                 </template>
 
@@ -46,11 +46,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.map-detail-field {
-    .readonly {
-        pointer-events: none;
-    }
-}
-</style>

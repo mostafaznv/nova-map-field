@@ -1,5 +1,5 @@
 <template>
-    <div class="map-container" :class="['marker-icon-' + markerIcon, isDirty ? '' : 'is-not-dirty']">
+    <div class="map-container">
         <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
             <ol-view
                 @centerChanged="setDirty"
