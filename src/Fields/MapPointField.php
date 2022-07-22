@@ -16,6 +16,15 @@ class MapPointField extends Field
 
     private string $mapType = 'POINT';
 
+    public function markerIcon(int $icon): self
+    {
+        if (in_array($icon, [1, 2, 3])) {
+            $this->markerIcon = url($this->markerIconPath . "ic-pin-{$icon}.png");
+        }
+
+        return $this;
+    }
+
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
         if ($request->exists($requestAttribute)) {

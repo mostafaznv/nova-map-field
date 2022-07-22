@@ -4,38 +4,6 @@
 .map-container {
     position: relative;
 
-    &.is-not-dirty {
-        filter: grayscale(1);
-    }
-
-    &.with-marker {
-        transition: all 300ms;
-
-        &:before {
-            position: absolute;
-            content: '';
-            width: 46px;
-            height: 46px;
-            top: calc(50% - 46px);
-            left: calc(50% - 23px);
-            background: url('/vendor/nova-map-field/dist/images/ic-pin-1.png') center;
-            background-size: cover !important;
-            z-index: 10;
-        }
-
-        &.marker-icon-2 {
-            &:before {
-                background-image: url('/vendor/nova-map-field/dist/images/ic-pin-2.png');
-            }
-        }
-
-        &.marker-icon-3 {
-            &:before {
-                background-image: url('/vendor/nova-map-field/dist/images/ic-pin-3.png');
-            }
-        }
-    }
-
     .ol-overlaycontainer-stopevent {
         z-index: 15 !important;
     }

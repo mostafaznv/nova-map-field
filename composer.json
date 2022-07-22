@@ -10,6 +10,7 @@
         "multi polygon",
         "spatial",
         "openlayers",
+        "geocoder",
         "nova"
     ],
     "license": "MIT",
