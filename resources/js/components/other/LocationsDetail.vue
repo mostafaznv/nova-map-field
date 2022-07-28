@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="map-location-information">
-                    <location-svg-icon />
+                    <location-svg-icon rotate />
                     <span>{{ __('Longitude') }}: {{ coordinate[1] }}</span>
                 </div>
             </div>
