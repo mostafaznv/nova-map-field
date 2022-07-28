@@ -23,6 +23,8 @@ trait WithMapProps
     private string $markerIconPath = '/vendor/nova-map-field/dist/images/';
     private string $markerIcon;
 
+    private bool $showDetailButton;
+
     private bool              $showSearchBox;
     private MapSearchProvider $searchProvider;
     private string            $searchProviderApiKey;
@@ -55,6 +57,7 @@ trait WithMapProps
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
+        $this->showDetailButton = $config['show-detail-button'];
 
         $this->showSearchBox = $searchConfig['enable'];
         $this->searchProvider = $searchConfig['provider'];
@@ -115,6 +118,13 @@ trait WithMapProps
     public function mapHeight(int $height): self
     {
         $this->mapHeight = $height;
+
+        return $this;
+    }
+
+    public function hideDetailButton(bool $status = true): self
+    {
+        $this->showDetailButton = !$status;
 
         return $this;
     }
@@ -231,8 +241,9 @@ trait WithMapProps
             'withFullScreenControl' => $this->withFullScreenControl,
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,
+            'showDetailButton'      => $this->showDetailButton,
             'search'                => [
-                'isEnabled'              => $this->showSearchBox,
+                'isEnabled'             => $this->showSearchBox,
                 'provider'              => $this->searchProvider->getValue(),
                 'apiKey'                => $this->searchProviderApiKey,
                 'withAutocomplete'      => $this->searchAutocomplete,
