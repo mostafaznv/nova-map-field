@@ -18,9 +18,20 @@ export default {
                 keepOpen: search.resultKeepOpen
             });
 
-            geocoder.element?.querySelector('input').addEventListener('click', () => {
-                this.isDirty = true
-            })
+            geocoder.on('addresschosen', (evt) => {
+                if (this.selectPointOnSearch) {
+                    this.initValue = {
+                        longitude: evt.coordinate[0],
+                        latitude: evt.coordinate[1]
+                    }
+
+                    this.setValue(evt.coordinate[1], evt.coordinate[0])
+                    geocoder.getSource().clear();
+                }
+                else {
+                    this.isDirty = true
+                }
+            });
 
             this.$refs.map.map.addControl(geocoder)
         }

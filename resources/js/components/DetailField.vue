@@ -4,17 +4,32 @@
             <div class="map-detail-field">
                 <template v-if="mapType === 'POINT'">
                     <point-form-field :field="field" :readonly="true" />
-                    <point-index-field class="mt-3" :field="field" :modal-mode="true" />
+                    <point-index-field
+                        v-if="showDetailButton"
+                        class="mt-3"
+                        :field="field"
+                        :modal-mode="true"
+                    />
                 </template>
 
                 <template v-else-if="mapType === 'POLYGON'">
                     <polygon-form-field :field="field" :readonly="true" />
-                    <polygon-index-field class="mt-3" :field="field" :modal-mode="true" />
+                    <polygon-index-field
+                        v-if="showDetailButton"
+                        class="mt-3"
+                        :field="field"
+                        :modal-mode="true"
+                    />
                 </template>
 
                 <template v-else-if="mapType === 'MULTI_POLYGON'">
                     <multi-polygon-form-field :field="field" :readonly="true" />
-                    <multi-polygon-index-field class="mt-3" :field="field" :modal-mode="true" />
+                    <multi-polygon-index-field
+                        v-if="showDetailButton"
+                        class="mt-3"
+                        :field="field"
+                        :modal-mode="true"
+                    />
                 </template>
             </div>
         </template>
@@ -41,7 +56,8 @@ export default {
     },
     data() {
         return {
-            mapType: this.field.mapType
+            mapType: this.field.mapType,
+            showDetailButton: this.field.showDetailButton
         }
     }
 }
