@@ -44,6 +44,7 @@ export default {
     data() {
         return {
             isDirty: false,
+            selectPointOnSearch: true,
             initValue: {
                 longitude: null,
                 latitude: null
