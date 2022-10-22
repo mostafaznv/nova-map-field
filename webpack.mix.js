@@ -16,7 +16,7 @@ mix.setPublicPath('dist')
     .alias({
         'laravel-nova': path.join(
             __dirname,
-            '../../../vendor/laravel/nova/resources/js/mixins/packages.js'
+            '../../vendor/laravel/nova/resources/js/mixins/packages.js'
         )
     })
     .copy('./images', 'dist/vendor/nova-map-field/dist/images')

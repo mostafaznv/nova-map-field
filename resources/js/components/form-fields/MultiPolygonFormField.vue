@@ -10,7 +10,7 @@
             />
 
             <ol-tile-layer>
-                <ol-source-osm />
+                <ol-source-osm :url="'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'" />
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
