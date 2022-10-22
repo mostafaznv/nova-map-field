@@ -28,7 +28,7 @@ class MapPolygonField extends Field
                 $points = [];
 
                 foreach ($coordinates as $coordinate) {
-                    $points[] = new Point($coordinate[0], $coordinate[1]);
+                    $points[] = new Point($coordinate[1], $coordinate[0]);
                 }
 
                 $model->{$attribute} = new Polygon([
