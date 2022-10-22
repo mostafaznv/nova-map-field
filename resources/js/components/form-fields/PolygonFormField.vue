@@ -33,20 +33,27 @@
                 </ol-source-vector>
 
                 <ol-style>
-                    <ol-style-stroke color="red" :width="2"></ol-style-stroke>
+                    <ol-style-stroke :color="`rgba(35, 115, 132, 1)`" :width="2"></ol-style-stroke>
                     <ol-style-fill color="rgba(255,255,255,0.1)"></ol-style-fill>
                     <ol-style-circle :radius="7">
-                        <ol-style-fill color="blue"></ol-style-fill>
+                        <ol-style-fill :color="`rgba(35, 115, 132, 1)`"></ol-style-fill>
                     </ol-style-circle>
                 </ol-style>
             </ol-vector-layer>
 
             <ol-interaction-select @select="featureSelected" :condition="selectCondition" :features="selectedFeatures">
                 <ol-style>
-                    <ol-style-stroke :color="'red'" :width="2"></ol-style-stroke>
-                    <ol-style-fill :color="`rgba(255, 0, 0, 0.4)`"></ol-style-fill>
+                    <ol-style-stroke :color="`rgba(35, 115, 132, 1)`" :width="2"></ol-style-stroke>
+                    <ol-style-fill :color="`rgba(83, 178, 199, 0.3)`"></ol-style-fill>
                 </ol-style>
             </ol-interaction-select>
+
+            <button type="button"
+                    @click="clear"
+                    class="shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-3 shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900"
+                    v-if="isEditable || drawIsEnabled">
+                Borrar Todo
+            </button>
 
             <ol-zoom-control v-if="withZoomControl" />
             <ol-zoomslider-control v-if="withZoomSlider" />
@@ -67,16 +74,25 @@ export default {
     mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     methods: {
+        clear() {
+            this.selectedFeatures.pop();
+            this.zones = [];
+            this.drawIsEnabled = true;
+            this.modifyIsEnabled = false;
+            this.setDirty();
+        },
         initCenter() {
             let value = []
 
             if (this.field.value) {
                 value = JSON.parse(this.field.value)
+
+                console.log(value);
             }
 
             if (value.length) {
                 const coordinates = [
-                    value[0].map(v => fromLonLat([v[1], v[0]]))
+                    value[0].map(v => fromLonLat([v[0], v[1]]))
                 ]
 
                 this.center = this.initFeatures(coordinates)
@@ -101,6 +117,7 @@ export default {
                 }
             ]
 
+
             this.drawIsEnabled = false
             this.modifyIsEnabled = true
 
@@ -109,6 +126,8 @@ export default {
 
         initZones() {
             this.zones = new GeoJSON().readFeatures(this.geoJsonObject)
+
+            console.log(this.zones, this.geoJsonObject)
 
             if (this.zones.length) {
                 this.selectedFeatures.push(this.zones[0])
