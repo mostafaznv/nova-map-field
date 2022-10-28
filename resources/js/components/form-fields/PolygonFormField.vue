@@ -14,7 +14,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
-                <ol-source-vector :features="zones">
+                <ol-source-vector ref="source" :features="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
                         @modifyend="onModifyEnd"
@@ -48,6 +48,13 @@
                 </ol-style>
             </ol-interaction-select>
 
+            <ol-interaction-transform
+                :condition="isTransformable"
+                :scale="field.transform.scale"
+                :rotate="field.transform.rotate"
+                :stretch="field.transform.stretch"
+            />
+
             <ol-zoom-control v-if="withZoomControl" />
             <ol-zoomslider-control v-if="withZoomSlider" />
             <ol-fullscreen-control v-if="withFullScreenControl" />
@@ -57,7 +64,7 @@
 
 <script>
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
-import {toLonLat, fromLonLat} from 'ol/proj';
+import {toLonLat, fromLonLat} from 'ol/proj'
 import {GeoJSON} from 'ol/format'
 import HasMap from '../../mixins/HasMap'
 import PolygonMixin from '../../mixins/PolygonMixin'
@@ -115,8 +122,8 @@ export default {
             }
         },
 
-        onModifyEnd(event) {
-            const geometry = event.features.getArray()[0].getGeometry()
+        onModifyEnd() {
+            const geometry = this.$refs.source.source.getFeatures()[0].getGeometry()
 
             this.setValue(geometry.getCoordinates())
         },

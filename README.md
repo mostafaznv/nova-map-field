@@ -124,30 +124,34 @@ Using this package, you can use spatial fields in Laravel Nova.
 
 ## Map Field Methods
 
-| method                      | Arguments                                | description                                                                     |
-|-----------------------------|------------------------------------------|---------------------------------------------------------------------------------|
-| defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                          |
-| defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                         |
-| zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                      |
-| withoutZoomControl          | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not               |
-| withoutZoomSlider           | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not                      |
-| withFullScreenControl       | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not               |
-| mapHeight                   | height <br> `integer` `default: 400`     | Map's height                                                                    |
-| hideDetailButton            | status <br> `bool` `default: true`       | Specifies whether **Show Details** button should appear on detail pages or not  |
-| markerIcon                  | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                                     |
-| withSearchBox               | `boolean`                                | Specifies whether map has search box or not                                     |
-| searchProvider              | provider `MapSearchProvider`             |                                                                                 |
-| searchProviderApiKey        | apiKey `string`                          | Specifies api key for search provider, if needed                                |
-| withAutocompleteSearch      | status `bool` `default: true`            | Specifies whether search results should load immediately or not                 |
-| searchAutocompleteMinLength | minLength `int`                          | Specifies the minimum number of characters to trigger search action             |
-| searchAutocompleteTimeout   | timeout `int`                            | Specifies the minimum number of ms to wait before triggering search action      |
-| searchLanguage              | language `string`                        | Specifies preferable language                                                   |
-| searchPlaceholder           | placeholder `string`                     |                                                                                 |
-| searchBoxType               | type `MapSearchBoxType`                  | Using this item, you can specify type of search box (button, or text-field      |
-| searchResultLimit           | limit `int`                              | Specifies limit of results                                                      |
-| searchResultKeepOpen        | status `boolean`                         | Specifies whether the results keep opened                                       |
-| requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                                |
-| requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                                  |
+| method                      | Arguments                                | description                                                                    |
+|-----------------------------|------------------------------------------|--------------------------------------------------------------------------------|
+| defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                         |
+| defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                        |
+| zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                     |
+| withoutZoomControl          | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not              |
+| withoutZoomSlider           | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not                     |
+| withFullScreenControl       | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not              |
+| mapHeight                   | height <br> `integer` `default: 400`     | Map's height                                                                   |
+| hideDetailButton            | status <br> `bool` `default: true`       | Specifies whether **Show Details** button should appear on detail pages or not |
+| markerIcon                  | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                                    |
+| withSearchBox               | `boolean`                                | Specifies whether map has search box or not                                    |
+| searchProvider              | provider `MapSearchProvider`             |                                                                                |
+| searchProviderApiKey        | apiKey `string`                          | Specifies api key for search provider, if needed                               |
+| withAutocompleteSearch      | status `bool` `default: true`            | Specifies whether search results should load immediately or not                |
+| searchAutocompleteMinLength | minLength `int`                          | Specifies the minimum number of characters to trigger search action            |
+| searchAutocompleteTimeout   | timeout `int`                            | Specifies the minimum number of ms to wait before triggering search action     |
+| searchLanguage              | language `string`                        | Specifies preferable language                                                  |
+| searchPlaceholder           | placeholder `string`                     |                                                                                |
+| searchBoxType               | type `MapSearchBoxType`                  | Using this item, you can specify type of search box (button, or text-field     |
+| searchResultLimit           | limit `int`                              | Specifies limit of results                                                     |
+| searchResultKeepOpen        | status `boolean`                         | Specifies whether the results keep opened                                      |
+| withTransformation          | status `boolean`                         | Specifies whether transport feature should be enable on polygons               |
+| transformScale              | status `boolean`                         | Using this method, you can enable/disable scaling features                     |
+| transformRotate             | status `boolean`                         | Using this method, you can enable/disable rotating features                    |
+| transformStretch            | status `boolean`                         | Using this method, you can enable/disable stretch option                       |
+| requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                               |
+| requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                                 |
 
 
 ## Config Properties
@@ -166,20 +170,38 @@ Using this package, you can use spatial fields in Laravel Nova.
 | search.enable                  | bool              | true                  | Using this item, you can toggle displaying search box on maps                                  |
 | search.provider                | MapSearchProvider | OSM                   | Specifies search provider available providers: `OSM, MAPQUEST, PHOTON, PELIAS, BING, OPENCAGE` |
 | search.api-key                 | string            | ''                    | Specifies API key if required                                                                  |
-| search.autocomplete            | boolean           | false                 | Using this item, you can toggle autocomplete feature for search box                            |
+| search.autocomplete            | bool              | false                 | Using this item, you can toggle autocomplete feature for search box                            |
 | search.autocomplete-min-length | int               | 2                     | The minimum number of characters to trigger search                                             |
 | search.autocomplete-timeout    | int               | 200                   | The minimum number of ms to wait before triggering search action                               |
 | search.language                | string            | en-US                 | Specifies preferable language                                                                  |
 | search.placeholder             | string            | Search for an address | Specifies placeholder for text input                                                           |
 | search.box-type                | MapSearchBoxType  | TEXT_FIELD            | Specifies type of search box. available types: `BUTTON, TEXT_FIELD`                            |
 | search.limit                   | int               | 5                     | Specifies limit of results                                                                     |
-| search.keep-open               | boolean           | false                 | Specifies whether the results keep opened                                                      |
+| search.keep-open               | bool              | false                 | Specifies whether the results keep opened                                                      |
+| transform.enable               | bool              | true                  | Using this item, you can toggle transforming polygons maps                                     |
+| transform.scale                | bool              | true                  | Using this property, you can toggle scaling features                                           |
+| transform.scale                | bool              | true                  | Using this property, you can toggle rotating features                                          |
+| transform.stretch              | bool              | true                  | Using this property, you can enable/disable stretch option                                     |
 
 ----
 
 ## Using Spatial Columns over Application
 
 This package uses [Laravel Eloquent Spatial](https://github.com/MatanYadaev/laravel-eloquent-spatial/) under the hood. to use columns and querying them over the application, please read **Laravel Eloquent Spatial** documentation
+
+----
+
+## Tricks
+
+### Transform Polygons
+
+To transform polygons, You should press `Alt` (Option `⌥`) button and drag that polygon everywhere you want.
+
+### Select Polygons
+
+To select polygons (and modify them), You can press `Shift` button and then click on the polygon. 
+By pressing the `Shift` key, drawing mode will be disabled and you can
+select every polygon you want.
 
 ----
 
