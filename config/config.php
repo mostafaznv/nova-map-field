@@ -67,6 +67,17 @@ return [
         */
 
         'full-screen-control' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Undo Control
+        |--------------------------------------------------------------------------
+        |
+        | Using this item, you can toggle displaying Undo button on maps (Only for Polygon and MultiPolygon)
+        |
+        */
+
+        'undo-control' => true,
     ],
 
     /*

@@ -69,9 +69,12 @@ import PolygonMixin from '../../mixins/PolygonMixin'
 import {fromLonLat, toLonLat} from 'ol/proj'
 import {GeoJSON} from 'ol/format'
 import HasSearchBox from '../../mixins/HasSearchBox'
+import HasZoomControl from '../../mixins/HasZoomControl'
 
 export default {
-    mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox],
+    mixins: [
+        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasZoomControl
+    ],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {
         return {

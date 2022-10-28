@@ -163,6 +163,7 @@ Using this package, you can use spatial fields in Laravel Nova.
 | zoom                           | int               | 12                    | Default zoom of map                                                                            |
 | controls.zoom-control          | bool              | true                  | Specifies if map should display zoom controls (zoom in/out buttons) or not                     |
 | controls.zoom-slider           | bool              | true                  | Specifies if map should display zoom slider or not                                             |
+| controls.undo-control          | bool              | true                  | Specifies if map should display undo control or not (Only for `Polygon` and `MultiPolygon`)    |
 | controls.full-screen-control   | bool              | false                 | Specifies if map should display full screen button or not                                      |
 | map-height                     | int               | 400                   | Specifies map height                                                                           |
 | icon                           | int               | 1                     | Specifies marker icon. available values: `1, 2, 3`                                             |
@@ -239,6 +240,7 @@ class Location extends Resource
                 ->zoom(14)
                 ->withoutZoomControl()
                 ->withoutZoomSlider()
+                ->withoutUndoControl()
                 ->withFullScreenControl()
                 ->mapHeight(360)
                 ->hideDetailButton(false)
@@ -253,6 +255,10 @@ class Location extends Resource
                 ->searchBoxType(MapSearchBoxType::BUTTON())
                 ->searchResultLimit(3)
                 ->searchResultKeepOpen(true)
+                ->withTransformation()
+                ->transformScale()
+                ->transformRotate()
+                ->transformStretch()
                 ->required()
                 ->requiredOnCreate()
                 ->requiredOnUpdate()
