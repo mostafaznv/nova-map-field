@@ -13,6 +13,7 @@ trait WithMapProps
 
     private bool $withZoomControl;
     private bool $withZoomSlider;
+    private bool $withUndoControl;
     private bool $withFullScreenControl;
 
     private int $mapHeight;
@@ -60,6 +61,7 @@ trait WithMapProps
         $this->zoom = $config['zoom'];
         $this->withZoomControl = $config['controls']['zoom-control'];
         $this->withZoomSlider = $config['controls']['zoom-slider'];
+        $this->withUndoControl = $config['controls']['undo-control'];
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
@@ -115,6 +117,13 @@ trait WithMapProps
     public function withoutZoomSlider(bool $status = true): self
     {
         $this->withZoomSlider = !$status;
+
+        return $this;
+    }
+
+    public function withoutUndoControl(bool $status = true): self
+    {
+        $this->withUndoControl = !$status;
 
         return $this;
     }
@@ -277,6 +286,7 @@ trait WithMapProps
             'zoom'                  => $this->zoom,
             'withZoomControl'       => $this->withZoomControl,
             'withZoomSlider'        => $this->withZoomSlider,
+            'withUndoControl'       => $this->withUndoControl,
             'withFullScreenControl' => $this->withFullScreenControl,
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,
@@ -295,10 +305,10 @@ trait WithMapProps
                 'resultKeepOpen'        => $this->searchResultKeepOpen
             ],
             'transform'             => [
-                'isEnabled'        => $this->transformStatus,
-                'scale'            => $this->transformScale,
-                'rotate'           => $this->transformRotate,
-                'stretch'          => $this->transformStretch
+                'isEnabled' => $this->transformStatus,
+                'scale'     => $this->transformScale,
+                'rotate'    => $this->transformRotate,
+                'stretch'   => $this->transformStretch
             ],
         ]);
     }
