@@ -37,6 +37,11 @@ trait WithMapProps
     private int               $searchResultLimit;
     private bool              $searchResultKeepOpen;
 
+    private bool $transformStatus;
+    private bool $transformScale;
+    private bool $transformRotate;
+    private bool $transformStretch;
+
     private bool $required         = false;
     private bool $requiredOnCreate = false;
     private bool $requiredOnUpdate = false;
@@ -48,6 +53,7 @@ trait WithMapProps
 
         $config = config('nova-map-field');
         $searchConfig = $config['search'];
+        $transformConfig = $config['transform'];
 
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
@@ -70,6 +76,11 @@ trait WithMapProps
         $this->searchBoxType = $searchConfig['box-type'];
         $this->searchResultLimit = $searchConfig['limit'];
         $this->searchResultKeepOpen = $searchConfig['keep-open'];
+
+        $this->transformStatus = $transformConfig['enable'];
+        $this->transformScale = $transformConfig['scale'];
+        $this->transformRotate = $transformConfig['rotate'];
+        $this->transformStretch = $transformConfig['stretch'];
     }
 
 
@@ -206,6 +217,34 @@ trait WithMapProps
         return $this;
     }
 
+    public function withTransformation(bool $status = true): self
+    {
+        $this->transformStatus = $status;
+
+        return $this;
+    }
+
+    public function transformScale(bool $status): self
+    {
+        $this->transformScale = $status;
+
+        return $this;
+    }
+
+    public function transformRotate(bool $status): self
+    {
+        $this->transformRotate = $status;
+
+        return $this;
+    }
+
+    public function transformStretch(bool $status): self
+    {
+        $this->transformStretch = $status;
+
+        return $this;
+    }
+
     public function required($callback = true): self
     {
         $this->required = true;
@@ -254,6 +293,12 @@ trait WithMapProps
                 'boxType'               => $this->searchBoxType->getValue(),
                 'resultLimit'           => $this->searchResultLimit,
                 'resultKeepOpen'        => $this->searchResultKeepOpen
+            ],
+            'transform'             => [
+                'isEnabled'        => $this->transformStatus,
+                'scale'            => $this->transformScale,
+                'rotate'           => $this->transformRotate,
+                'stretch'          => $this->transformStretch
             ],
         ]);
     }

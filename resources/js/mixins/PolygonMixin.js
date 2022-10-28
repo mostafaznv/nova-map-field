@@ -1,9 +1,9 @@
 import {Collection} from 'ol'
 import {Fill, Stroke, Style} from 'ol/style'
-import {toLonLat, fromLonLat} from 'ol/proj'
-import {GeoJSON} from 'ol/format'
+import {altKeyOnly, shiftKeyOnly} from 'ol/events/condition'
 import {getCenter} from 'ol/extent'
 import {inject} from 'vue'
+import {debounce} from 'lodash'
 
 export default {
     data() {
@@ -15,6 +15,8 @@ export default {
             drawIsEnabled: true,
             modifyIsEnabled: false,
             selectCondition: null,
+            altKeyIsDown: false,
+            shiftKeyIsDown: false,
             geoJsonObject: {
                 type: 'FeatureCollection',
                 crs: {
@@ -33,7 +35,7 @@ export default {
         },
 
         isDrawable() {
-            return this.drawIsEnabled && !this.isReadonly
+            return this.drawIsEnabled && !this.isReadonly && !this.altKeyIsDown && !this.shiftKeyIsDown
         },
 
         isEditable() {
@@ -80,6 +82,13 @@ export default {
             this.modifyIsEnabled = event.selected.length > 0
 
             this.selectedFeatures.value = event.target.getFeatures()
+        },
+
+        isTransformable(evt) {
+            this.altKeyIsDown = altKeyOnly(evt)
+            this.shiftKeyIsDown = shiftKeyOnly(evt)
+
+            return this.field.transform.isEnabled && !this.isDrawable && this.altKeyIsDown
         }
     },
     created() {
@@ -87,5 +96,12 @@ export default {
 
         const selectConditions = inject('ol-selectconditions')
         this.selectCondition = selectConditions.click
+    },
+    mounted() {
+        if (this.$refs.map && this.field.transform.isEnabled) {
+            this.$refs.map.map.on('pointerdrag', debounce((evt) => {
+                this.onModifyEnd(evt)
+            }, 300))
+        }
     }
 }

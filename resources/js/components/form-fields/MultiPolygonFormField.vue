@@ -48,6 +48,13 @@
                 </ol-style>
             </ol-interaction-select>
 
+            <ol-interaction-transform
+                :condition="isTransformable"
+                :scale="field.transform.scale"
+                :rotate="field.transform.rotate"
+                :stretch="field.transform.stretch"
+            />
+
             <ol-zoom-control v-if="withZoomControl" />
             <ol-zoomslider-control v-if="withZoomSlider" />
             <ol-fullscreen-control v-if="withFullScreenControl" />
@@ -60,8 +67,8 @@ import {FormField, HandlesValidationErrors} from 'laravel-nova'
 import HasMap from '../../mixins/HasMap'
 import PolygonMixin from '../../mixins/PolygonMixin'
 import {fromLonLat, toLonLat} from 'ol/proj'
-import {GeoJSON} from "ol/format";
-import HasSearchBox from "../../mixins/HasSearchBox";
+import {GeoJSON} from 'ol/format'
+import HasSearchBox from '../../mixins/HasSearchBox'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox],
