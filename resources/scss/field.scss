@@ -166,9 +166,13 @@
     }
 }
 
-.ol-undo {
+.ol-undo, .ol-clear-map {
     position: absolute;
-    top: 0.3em;
+    bottom: 0.3em;
     right: 0.3em;
     font-size: 18px !important;
+}
+
+.ol-clear-map {
+    bottom: 1.1em;
 }
