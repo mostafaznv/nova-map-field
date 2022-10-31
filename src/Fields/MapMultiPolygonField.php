@@ -42,6 +42,9 @@ class MapMultiPolygonField extends Field
 
                 $model->{$attribute} = new MultiPolygon($multiPolygon);
             }
+            else {
+                $model->{$attribute} = null;
+            }
         }
     }
 

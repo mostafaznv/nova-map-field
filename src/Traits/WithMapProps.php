@@ -14,6 +14,7 @@ trait WithMapProps
     private bool $withZoomControl;
     private bool $withZoomSlider;
     private bool $withUndoControl;
+    private bool $withClearMapControl;
     private bool $withFullScreenControl;
 
     private int $mapHeight;
@@ -62,6 +63,7 @@ trait WithMapProps
         $this->withZoomControl = $config['controls']['zoom-control'];
         $this->withZoomSlider = $config['controls']['zoom-slider'];
         $this->withUndoControl = $config['controls']['undo-control'];
+        $this->withClearMapControl = $config['controls']['clear-map-control'];
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
@@ -124,6 +126,13 @@ trait WithMapProps
     public function withoutUndoControl(bool $status = true): self
     {
         $this->withUndoControl = !$status;
+
+        return $this;
+    }
+
+    public function withoutClearMapControl(bool $status = true): self
+    {
+        $this->withClearMapControl = !$status;
 
         return $this;
     }
@@ -287,6 +296,7 @@ trait WithMapProps
             'withZoomControl'       => $this->withZoomControl,
             'withZoomSlider'        => $this->withZoomSlider,
             'withUndoControl'       => $this->withUndoControl,
+            'withClearMapControl'   => $this->withClearMapControl,
             'withFullScreenControl' => $this->withFullScreenControl,
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,

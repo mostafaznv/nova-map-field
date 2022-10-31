@@ -1,6 +1,7 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
+                :style="mapStyles">
             <ol-view
                 @centerChanged="setDirty"
                 :center="center"
@@ -14,7 +15,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
-                <ol-source-vector ref="source" :features="zones">
+                <ol-source-vector ref="source" :features.sync="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
                         @modifyend="onModifyEnd"
@@ -69,11 +70,12 @@ import PolygonMixin from '../../mixins/PolygonMixin'
 import {fromLonLat, toLonLat} from 'ol/proj'
 import {GeoJSON} from 'ol/format'
 import HasSearchBox from '../../mixins/HasSearchBox'
-import HasZoomControl from '../../mixins/HasZoomControl'
+import HasUndoControl from '../../mixins/HasUndoControl'
+import HasClearMapControl from '../../mixins/HasClearMapControl'
 
 export default {
     mixins: [
-        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasZoomControl
+        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
     ],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {
@@ -134,20 +136,31 @@ export default {
 
         onModifyEnd() {
             this.values = []
+            const features = this.$refs.source.source.getFeatures()
 
-            this.$refs.source.source.getFeatures().forEach((feature) => {
-                this.setValue(feature.getGeometry().getCoordinates())
-            })
+            if (features.length) {
+                features.forEach((feature) => {
+                    this.setValue(feature.getGeometry().getCoordinates())
+                })
+            }
+            else {
+                this.setValue([])
+            }
         },
 
         setValue(coordinates) {
             this.drawIsEnabled = true
+
+            console.log(coordinates.length)
 
             if (coordinates.length) {
                 this.values.push(coordinates[0].map(coordinate => toLonLat(coordinate)))
 
                 this.fieldValue = JSON.stringify(this.values)
                 this.setDirty()
+            }
+            else {
+                this.fieldValue = ''
             }
         }
     }

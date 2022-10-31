@@ -14,7 +14,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
-                <ol-source-vector ref="source" :features="zones">
+                <ol-source-vector ref="source" :features.sync="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
                         @modifyend="onModifyEnd"
@@ -69,11 +69,12 @@ import {GeoJSON} from 'ol/format'
 import HasMap from '../../mixins/HasMap'
 import PolygonMixin from '../../mixins/PolygonMixin'
 import HasSearchBox from '../../mixins/HasSearchBox'
-import HasZoomControl from '../../mixins/HasZoomControl'
+import HasUndoControl from '../../mixins/HasUndoControl'
+import HasClearMapControl from '../../mixins/HasClearMapControl'
 
 export default {
     mixins: [
-        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasZoomControl
+        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
     ],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     methods: {
@@ -126,9 +127,16 @@ export default {
         },
 
         onModifyEnd() {
-            const geometry = this.$refs.source.source.getFeatures()[0].getGeometry()
+            const features = this.$refs.source.source.getFeatures()
 
-            this.setValue(geometry.getCoordinates())
+            if (features.length) {
+                const geometry = features[0].getGeometry()
+
+                this.setValue(geometry.getCoordinates())
+            }
+            else {
+                this.setValue([])
+            }
         },
 
         setValue(coordinates) {
@@ -137,6 +145,9 @@ export default {
 
                 this.fieldValue = JSON.stringify(coordinates)
                 this.setDirty()
+            }
+            else {
+                this.fieldValue = ''
             }
         }
     }

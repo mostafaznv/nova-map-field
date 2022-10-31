@@ -35,6 +35,9 @@ class MapPolygonField extends Field
                     new LineString($points)
                 ]);
             }
+            else {
+                $model->{$attribute} = null;
+            }
         }
     }
 
