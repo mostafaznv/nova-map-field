@@ -78,6 +78,17 @@ return [
         */
 
         'undo-control' => true,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Clear Map Control
+        |--------------------------------------------------------------------------
+        |
+        | Using this item, you can toggle displaying Clear button on maps (Only for Polygon and MultiPolygon)
+        |
+        */
+
+        'clear-map-control' => true,
     ],
 
     /*
