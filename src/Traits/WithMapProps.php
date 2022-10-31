@@ -7,6 +7,8 @@ use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
 
 trait WithMapProps
 {
+    private string $templateUrl;
+
     private ?float $defaultLatitude;
     private ?float $defaultLongitude;
     private int    $zoom;
@@ -57,6 +59,7 @@ trait WithMapProps
         $searchConfig = $config['search'];
         $transformConfig = $config['transform'];
 
+        $this->templateUrl = $config['template-url'];
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
         $this->zoom = $config['zoom'];
@@ -87,6 +90,13 @@ trait WithMapProps
         $this->transformStretch = $transformConfig['stretch'];
     }
 
+
+    public function templateUrl(string $url): self
+    {
+        $this->templateUrl = $url;
+
+        return $this;
+    }
 
     public function defaultLatitude(float $latitude): self
     {
@@ -290,6 +300,7 @@ trait WithMapProps
     {
         return array_merge(parent::jsonSerialize(), [
             'mapType'               => $this->mapType ?? 'POINT',
+            'templateUrl'           => $this->templateUrl,
             'defaultLatitude'       => $this->defaultLatitude,
             'defaultLongitude'      => $this->defaultLongitude,
             'zoom'                  => $this->zoom,

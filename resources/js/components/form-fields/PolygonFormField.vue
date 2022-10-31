@@ -10,7 +10,7 @@
             />
 
             <ol-tile-layer>
-                <ol-source-osm />
+                <ol-source-osm :url="field.templateUrl" />
             </ol-tile-layer>
 
             <ol-vector-layer :style="vectorStyle">
