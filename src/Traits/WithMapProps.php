@@ -27,6 +27,10 @@ trait WithMapProps
     private string $markerIconPath = '/vendor/nova-map-field/dist/images/';
     private string $markerIcon;
 
+    private string $strokeColor;
+    private string $strokeWidth;
+    private string $fillColor;
+
     private bool $showDetailButton;
 
     private bool              $showSearchBox;
@@ -70,6 +74,9 @@ trait WithMapProps
         $this->withFullScreenControl = $config['controls']['full-screen-control'];
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
+        $this->strokeColor = $config['style']['stroke-color'];
+        $this->strokeWidth = $config['style']['stroke-width'];
+        $this->fillColor = $config['style']['fill-color'];
         $this->showDetailButton = $config['show-detail-button'];
 
         $this->showSearchBox = $searchConfig['enable'];
@@ -330,6 +337,11 @@ trait WithMapProps
                 'scale'     => $this->transformScale,
                 'rotate'    => $this->transformRotate,
                 'stretch'   => $this->transformStretch
+            ],
+            'style'                 => [
+                'strokeColor' => $this->strokeColor,
+                'strokeWidth' => $this->strokeWidth,
+                'fillColor'   => $this->fillColor
             ],
         ]);
     }

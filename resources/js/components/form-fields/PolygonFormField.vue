@@ -33,18 +33,19 @@
                 </ol-source-vector>
 
                 <ol-style>
-                    <ol-style-stroke color="red" :width="2"></ol-style-stroke>
-                    <ol-style-fill color="rgba(255,255,255,0.1)"></ol-style-fill>
+                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth" />
+                    <ol-style-fill :color="field.style.fillColor" />
+
                     <ol-style-circle :radius="7">
-                        <ol-style-fill color="blue"></ol-style-fill>
+                        <ol-style-fill color="blue" />
                     </ol-style-circle>
                 </ol-style>
             </ol-vector-layer>
 
             <ol-interaction-select @select="featureSelected" :condition="selectCondition" :features="selectedFeatures">
                 <ol-style>
-                    <ol-style-stroke :color="'red'" :width="2"></ol-style-stroke>
-                    <ol-style-fill :color="`rgba(255, 0, 0, 0.4)`"></ol-style-fill>
+                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth" />
+                    <ol-style-fill :color="field.style.fillColor" />
                 </ol-style>
             </ol-interaction-select>
 

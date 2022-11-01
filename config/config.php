@@ -125,6 +125,45 @@ return [
 
     'icon' => 1,
 
+    'style' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Stroke Color
+        |--------------------------------------------------------------------------
+        |
+        | Using this property, you can specify stroke color of polygons or other shapes.
+        | Either in hexadecimal or as RGBA array.
+        | Example: red, #ff0000, rgb(255, 0, 0), rgba(255, 0, 0, 1)
+        |
+        */
+
+        'stroke-color' => 'red',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Stroke Width
+        |--------------------------------------------------------------------------
+        |
+        | Width of the stroke (px)
+        |
+        */
+
+        'stroke-width' => 2,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Fill Color
+        |--------------------------------------------------------------------------
+        |
+        | Using this property, you can specify filling color of polygons or other shapes.
+        | Either in hexadecimal or as RGBA array.
+        | Example: red, #ff0000, rgb(255, 0, 0), rgba(255, 0, 0, 1)
+        |
+        */
+
+        'fill-color' => 'rgba(255, 0, 0, 0.4)',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Show Detail Button
