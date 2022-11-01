@@ -4,7 +4,7 @@
             <ol-view :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
 
             <ol-tile-layer>
-                <ol-source-osm />
+                <ol-source-osm :url="field.templateUrl" />
             </ol-tile-layer>
 
             <ol-vector-layer>
