@@ -67,11 +67,11 @@ trait WithMapProps
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
         $this->zoom = $config['zoom'];
-        $this->withZoomControl = $config['controls']['zoom-control'];
-        $this->withZoomSlider = $config['controls']['zoom-slider'];
-        $this->withUndoControl = $config['controls']['undo-control'];
-        $this->withClearMapControl = $config['controls']['clear-map-control'];
-        $this->withFullScreenControl = $config['controls']['full-screen-control'];
+        $this->withZoomControl = $config['controls']['zoom-control'] ?? true;
+        $this->withZoomSlider = $config['controls']['zoom-slider'] ?? true;
+        $this->withFullScreenControl = $config['controls']['full-screen-control'] ?? false;
+        $this->withUndoControl = $config['controls']['undo-control'] ?? true;
+        $this->withClearMapControl = $config['controls']['clear-map-control'] ?? true;
         $this->mapHeight = $config['map-height'];
         $this->markerIcon = url($this->markerIconPath . "ic-pin-{$config['icon']}.png");
         $this->strokeColor = $config['style']['stroke-color'];
