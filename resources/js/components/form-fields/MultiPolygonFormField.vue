@@ -152,8 +152,6 @@ export default {
         setValue(coordinates) {
             this.drawIsEnabled = true
 
-            console.log(coordinates.length)
-
             if (coordinates.length) {
                 this.values.push(coordinates[0].map(coordinate => toLonLat(coordinate)))
 
