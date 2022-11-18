@@ -1,4 +1,11 @@
 /*!
+ * @kirtandesai/ol-geocoder - v5.0.3
+ * A geocoder extension compatible with OpenLayers v7.
+ * https://github.com/kirtan-desai/ol-geocoder
+ * Built: Thu Nov 17 2022 14:58:35 GMT-0500 (Eastern Standard Time)
+ */
+
+/*!
  * The buffer module from node.js, for the browser.
  *
  * @author   Feross Aboukhadijeh <http://feross.org>
@@ -9,13 +16,6 @@
  * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
  * Copyright (c) 2022 Niklas von Hertzen <https://hertzen.com>
  * Released under MIT License
- */
-
-/*!
- * ol-geocoder - v4.1.2
- * A geocoder extension for OpenLayers.
- * https://github.com/jonataswalker/ol-geocoder
- * Built: Wed Jan 20 2021 10:05:05 GMT-0300 (Brasilia Standard Time)
  */
 
 /*!

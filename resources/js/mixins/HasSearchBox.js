@@ -1,4 +1,5 @@
-import Geocoder from 'ol-geocoder'
+// import Geocoder from 'ol-geocoder'
+import Geocoder from '@kirtandesai/ol-geocoder'
 
 export default {
     mounted() {
