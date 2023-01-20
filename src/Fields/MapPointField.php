@@ -5,6 +5,7 @@ namespace Mostafaznv\NovaMapField\Fields;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use Mostafaznv\NovaMapField\DTOs\PointValue;
 use Mostafaznv\NovaMapField\Rules\PointRequiredRule;
 use Mostafaznv\NovaMapField\Traits\WithMapProps;
 
@@ -14,7 +15,8 @@ class MapPointField extends Field
 
     public $component = 'nova-map-field';
 
-    private string $mapType = 'POINT';
+    private string      $mapType      = 'POINT';
+    private ?PointValue $defaultValue = null;
 
     public function markerIcon(int $icon): self
     {
@@ -42,10 +44,27 @@ class MapPointField extends Field
 
         $attribute = $attribute ?? $this->attribute;
 
-        $this->value = json_encode([
-            'latitude'  => $resource->{$attribute}?->latitude,
-            'longitude' => $resource->{$attribute}?->longitude
-        ]);
+        if (is_null($resource->{$attribute}) and is_null($resource->id) and $this->defaultValue) {
+            $this->value = json_encode([
+                'latitude'  => $this->defaultValue->getLatitude(),
+                'longitude' => $this->defaultValue->getLongitude()
+            ]);
+        }
+        else {
+            $this->value = json_encode([
+                'latitude'  => $resource->{$attribute}?->latitude,
+                'longitude' => $resource->{$attribute}?->longitude
+            ]);
+        }
+    }
+
+    public function default($callback): self
+    {
+        if ($callback instanceof PointValue) {
+            $this->defaultValue = $callback;
+        }
+
+        return $this;
     }
 
     public function setRules(): void
