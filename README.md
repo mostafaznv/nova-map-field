@@ -288,3 +288,10 @@ class Location extends Resource
 ## License
 
 This software is released under [The MIT License (MIT)](LICENSE).
+
+
+
+-----
+### Sponsors
+
+[![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://jb.gg/OpenSourceSupport)
