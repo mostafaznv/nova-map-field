@@ -33,7 +33,7 @@ export default {
     },
     data() {
         return {
-            value: JSON.parse(this.field.value || {})
+            value: JSON.parse(this.field.value || '{}')
         }
     },
     computed: {

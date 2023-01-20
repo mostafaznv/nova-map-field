@@ -153,6 +153,7 @@ Using this package, you can use spatial fields in Laravel Nova.
 | transformStretch            | status `boolean`                         | Using this method, you can enable/disable stretch option                       |
 | requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                               |
 | requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                                 |
+| default                     | $callback <br> `PointValue`              | Set default value for map field. <br>**Note:** Only works in `MapPointField`   |
 
 
 ## Config Properties
@@ -225,6 +226,7 @@ use Laravel\Nova\Fields\Text;
 use App\Models\Location as Model;
 use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
 use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
+use Mostafaznv\NovaMapField\DTOs\PointValue;
 use Mostafaznv\NovaMapField\Fields\MapPointField;
 
 class Location extends Resource
@@ -269,7 +271,10 @@ class Location extends Resource
                 ->required()
                 ->requiredOnCreate()
                 ->requiredOnUpdate()
-                ->stacked(),
+                ->stacked()
+                ->default(
+                    PointValue::make(51.5887845, 4.7760237)
+                ),
         ];
     }
 }
@@ -288,3 +293,10 @@ class Location extends Resource
 ## License
 
 This software is released under [The MIT License (MIT)](LICENSE).
+
+
+
+-----
+### Sponsors
+
+[![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://jb.gg/OpenSourceSupport)

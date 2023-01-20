@@ -1,5 +1,6 @@
 @import '../../node_modules/vue3-openlayers/dist/vue3-openlayers.css';
-@import '../../node_modules/ol-geocoder/dist/ol-geocoder.min.css';
+//@import '../../node_modules/ol-geocoder/dist/ol-geocoder.min.css';
+@import '../../node_modules/@kirtandesai/ol-geocoder/dist/ol-geocoder.min.css';
 
 .map-container {
     position: relative;
