@@ -11,6 +11,11 @@ abstract class MapEnum
         return new static($name);
     }
 
+    public static function __set_state(array $array): object
+    {
+        return new static($array['value'] ?? '');
+    }
+
     public function getValue(): int|string
     {
         return $this->value;
