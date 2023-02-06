@@ -9,9 +9,10 @@ trait WithMapProps
 {
     private string $templateUrl;
 
-    private ?float $defaultLatitude;
-    private ?float $defaultLongitude;
-    private int    $zoom;
+    private ?string $defaultProjection;
+    private ?float  $defaultLatitude;
+    private ?float  $defaultLongitude;
+    private int     $zoom;
 
     private bool $withZoomControl;
     private bool $withZoomSlider;
@@ -64,6 +65,7 @@ trait WithMapProps
         $transformConfig = $config['transform'];
 
         $this->templateUrl = $config['template-url'];
+        $this->defaultProjection = $config['default-projection'];
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
         $this->zoom = $config['zoom'];
@@ -101,6 +103,13 @@ trait WithMapProps
     public function templateUrl(string $url): self
     {
         $this->templateUrl = $url;
+
+        return $this;
+    }
+
+    public function defaultProjection(string $projection): self
+    {
+        $this->defaultProjection = $projection;
 
         return $this;
     }
@@ -308,6 +317,7 @@ trait WithMapProps
         return array_merge(parent::jsonSerialize(), [
             'mapType'               => $this->mapType ?? 'POINT',
             'templateUrl'           => $this->templateUrl,
+            'defaultProjection'     => $this->defaultProjection,
             'defaultLatitude'       => $this->defaultLatitude,
             'defaultLongitude'      => $this->defaultLongitude,
             'zoom'                  => $this->zoom,

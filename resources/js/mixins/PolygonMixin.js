@@ -22,7 +22,7 @@ export default {
                 crs: {
                     type: 'name',
                     properties: {
-                        name: 'EPSG:3857'
+                        name: this.field.defaultProjection
                     }
                 },
                 features: []
