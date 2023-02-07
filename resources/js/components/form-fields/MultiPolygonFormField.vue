@@ -95,7 +95,7 @@ export default {
 
             if (values.length) {
                 const coordinates = values.map(value => {
-                    return value[0].map(v => fromLonLat([v[1], v[0]]))
+                    return value[0].map(v => fromLonLat([v[0], v[1]]))
                 })
 
                 this.center = this.initFeatures(coordinates)
@@ -153,7 +153,11 @@ export default {
             this.drawIsEnabled = true
 
             if (coordinates.length) {
-                this.values.push(coordinates[0].map(coordinate => toLonLat(coordinate)))
+                this.values.push(
+                    coordinates[0]
+                        .map(coordinate => toLonLat(coordinate))
+                        .map(coordinate => [coordinate[1], coordinate[0]])
+                )
 
                 this.fieldValue = JSON.stringify(this.values)
                 this.setDirty()
