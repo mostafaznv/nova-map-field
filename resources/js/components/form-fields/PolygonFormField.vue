@@ -1,6 +1,7 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
+                :style="mapStyles">
             <ol-view
                 @centerChanged="setDirty"
                 :center="center"
@@ -88,7 +89,7 @@ export default {
 
             if (value.length) {
                 const coordinates = [
-                    value[0].map(v => fromLonLat([v[1], v[0]]))
+                    value[0].map(v => fromLonLat([v[0], v[1]]))
                 ]
 
                 this.center = this.initFeatures(coordinates)
@@ -142,7 +143,9 @@ export default {
 
         setValue(coordinates) {
             if (coordinates.length) {
-                coordinates = coordinates[0].map(coordinate => toLonLat(coordinate))
+                coordinates = coordinates[0]
+                    .map(coordinate => toLonLat(coordinate))
+                    .map(coordinate => [coordinate[1], coordinate[0]])
 
                 this.fieldValue = JSON.stringify(coordinates)
                 this.setDirty()
