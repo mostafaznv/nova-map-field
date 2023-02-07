@@ -128,7 +128,7 @@ I develop in a open-source journey 🚀, I wish I lived in an environment where 
 | method                      | Arguments                                | description                                                                    |
 |-----------------------------|------------------------------------------|--------------------------------------------------------------------------------|
 | templateUrl                 | url <br> `string`                        | Specifies template of map                                                      |
-| defaultProjection           | projection <br> `string`                 | Specifies projection of map                                                    |
+| projection                  | projection <br> `string`                 | Specifies projection of map                                                    |
 | srid                        | srid <br> `integer` `default: 0`         | Specifies SRID of map                                                          |
 | defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                         |
 | defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                        |
@@ -164,7 +164,7 @@ I develop in a open-source journey 🚀, I wish I lived in an environment where 
 | Method                         | Type              | Default                                                | Description                                                                                                             |
 |--------------------------------|-------------------|--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | template-url                   | string            | `https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png` | Default Template URL. Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.                                      |
-| default-projection             | string            | EPSG:3857                                              | Default projection of map                                                                                               |
+| projection                     | string            | `EPSG:3857`                                            | Default projection of map                                                                                               |
 | srid                           | int               | 0                                                      | Default SRID of map                                                                                                     |
 | default-latitude               | bool              | 0                                                      | Default latitude of map                                                                                                 |
 | default-longitude              | bool              | 0                                                      | Default longitude of map                                                                                                |
@@ -249,7 +249,7 @@ class Location extends Resource
                 
             MapPointField::make(trans('Location'), 'location')
                 ->templateUrl('https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-                ->defaultProjection('EPSG:3857')
+                ->projection('EPSG:3857')
                 ->srid(3857)
                 ->defaultLatitude(35.6978527)
                 ->defaultLongitude(51.4037269)

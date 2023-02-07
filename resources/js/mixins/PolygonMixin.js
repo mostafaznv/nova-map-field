@@ -22,7 +22,7 @@ export default {
                 crs: {
                     type: 'name',
                     properties: {
-                        name: this.field.defaultProjection
+                        name: this.field.projection
                     }
                 },
                 features: []

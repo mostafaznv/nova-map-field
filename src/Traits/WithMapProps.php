@@ -9,7 +9,7 @@ trait WithMapProps
 {
     private string $templateUrl;
 
-    private ?string $defaultProjection;
+    private ?string $projection;
     private int     $srid;
     private ?float  $defaultLatitude;
     private ?float  $defaultLongitude;
@@ -66,7 +66,7 @@ trait WithMapProps
         $transformConfig = $config['transform'];
 
         $this->templateUrl = $config['template-url'];
-        $this->defaultProjection = $config['default-projection'];
+        $this->projection = $config['projection'];
         $this->srid = $config['srid'] ?? 0;
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
@@ -109,9 +109,9 @@ trait WithMapProps
         return $this;
     }
 
-    public function defaultProjection(string $projection): self
+    public function projection(string $projection): self
     {
-        $this->defaultProjection = $projection;
+        $this->projection = $projection;
 
         return $this;
     }
@@ -326,7 +326,7 @@ trait WithMapProps
         return array_merge(parent::jsonSerialize(), [
             'mapType'               => $this->mapType ?? 'POINT',
             'templateUrl'           => $this->templateUrl,
-            'defaultProjection'     => $this->defaultProjection,
+            'projection'            => $this->projection,
             'srid'                  => $this->srid,
             'defaultLatitude'       => $this->defaultLatitude,
             'defaultLongitude'      => $this->defaultLongitude,
