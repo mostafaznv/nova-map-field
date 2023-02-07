@@ -28,12 +28,15 @@ class MapPolygonField extends Field
                 $points = [];
 
                 foreach ($coordinates as $coordinate) {
-                    $points[] = new Point($coordinate[0], $coordinate[1]);
+                    $points[] = new Point($coordinate[0], $coordinate[1], $this->srid);
                 }
 
-                $model->{$attribute} = new Polygon([
-                    new LineString($points)
-                ]);
+                $model->{$attribute} = new Polygon(
+                    geometries: [
+                        new LineString($points)
+                    ],
+                    srid: $this->srid
+                );
             }
             else {
                 $model->{$attribute} = null;

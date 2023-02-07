@@ -128,6 +128,8 @@ I develop in a open-source journey 🚀, I wish I lived in an environment where 
 | method                      | Arguments                                | description                                                                    |
 |-----------------------------|------------------------------------------|--------------------------------------------------------------------------------|
 | templateUrl                 | url <br> `string`                        | Specifies template of map                                                      |
+| projection                  | projection <br> `string`                 | Specifies projection of map                                                    |
+| srid                        | srid <br> `integer` `default: 0`         | Specifies SRID of map                                                          |
 | defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                         |
 | defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                        |
 | zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                     |
@@ -159,38 +161,40 @@ I develop in a open-source journey 🚀, I wish I lived in an environment where 
 
 ## Config Properties
 
-| Method                         | Type              | Default                                                | Description                                                                                                              |
-|--------------------------------|-------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| template-url                   | string            | `https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png` | Default Template URL. Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.                                       |
-| default-latitude               | bool              | 0                                                      | Default latitude of map                                                                                                  |
-| default-longitude              | bool              | 0                                                      | Default longitude of map                                                                                                 |
-| zoom                           | int               | 12                                                     | Default zoom of map                                                                                                      |
-| controls.zoom-control          | bool              | true                                                   | Specifies if map should display zoom controls (zoom in/out buttons) or not                                               |
-| controls.zoom-slider           | bool              | true                                                   | Specifies if map should display zoom slider or not                                                                       |
-| controls.full-screen-control   | bool              | false                                                  | Specifies if map should display full screen button or not                                                                |
-| controls.undo-control          | bool              | true                                                   | Specifies if map should display undo control or not (Only for `Polygon` and `MultiPolygon`)                              |
-| controls.clear-map-control     | bool              | true                                                   | Specifies if map should display clear map control or not (Only for `Polygon` and `MultiPolygon`)                         |
-| map-height                     | int               | 400                                                    | Specifies map height                                                                                                     |
-| icon                           | int               | 1                                                      | Specifies marker icon. available values: `1, 2, 3`                                                                       |
-| style.stroke-color             | string            | red                                                    | Using this property, you can specify stroke color of polygons or other shapes. Either in hexadecimal or as RGBA array    |
-| style.stroke-width             | int               | 2                                                      | Width of the stroke (px)                                                                                                 |
-| style.fill-color               | string            | rgba(255, 0, 0, 0.4)                                   | Using this property, you can specify filling color of polygons or other shapes. Either in hexadecimal or as RGBA array.  |
-| show-detail-button             | bool              | true                                                   | Specifies whether **Show Details** button should appear on detail pages or not                                           |
-| search.enable                  | bool              | true                                                   | Using this item, you can toggle displaying search box on maps                                                            |
-| search.provider                | MapSearchProvider | OSM                                                    | Specifies search provider available providers: `OSM, MAPQUEST, PHOTON, PELIAS, BING, OPENCAGE`                           |
-| search.api-key                 | string            | ''                                                     | Specifies API key if required                                                                                            |
-| search.autocomplete            | bool              | false                                                  | Using this item, you can toggle autocomplete feature for search box                                                      |
-| search.autocomplete-min-length | int               | 2                                                      | The minimum number of characters to trigger search                                                                       |
-| search.autocomplete-timeout    | int               | 200                                                    | The minimum number of ms to wait before triggering search action                                                         |
-| search.language                | string            | en-US                                                  | Specifies preferable language                                                                                            |
-| search.placeholder             | string            | Search for an address                                  | Specifies placeholder for text input                                                                                     |
-| search.box-type                | MapSearchBoxType  | TEXT_FIELD                                             | Specifies type of search box. available types: `BUTTON, TEXT_FIELD`                                                      |
-| search.limit                   | int               | 5                                                      | Specifies limit of results                                                                                               |
-| search.keep-open               | bool              | false                                                  | Specifies whether the results keep opened                                                                                |
-| transform.enable               | bool              | true                                                   | Using this item, you can toggle transforming polygons maps                                                               |
-| transform.scale                | bool              | true                                                   | Using this property, you can toggle scaling features                                                                     |
-| transform.scale                | bool              | true                                                   | Using this property, you can toggle rotating features                                                                    |
-| transform.stretch              | bool              | true                                                   | Using this property, you can enable/disable stretch option                                                               |
+| Method                         | Type              | Default                                                | Description                                                                                                             |
+|--------------------------------|-------------------|--------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| template-url                   | string            | `https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png` | Default Template URL. Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.                                      |
+| projection                     | string            | `EPSG:3857`                                            | Default projection of map                                                                                               |
+| srid                           | int               | 0                                                      | Default SRID of map                                                                                                     |
+| default-latitude               | bool              | 0                                                      | Default latitude of map                                                                                                 |
+| default-longitude              | bool              | 0                                                      | Default longitude of map                                                                                                |
+| zoom                           | int               | 12                                                     | Default zoom of map                                                                                                     |
+| controls.zoom-control          | bool              | true                                                   | Specifies if map should display zoom controls (zoom in/out buttons) or not                                              |
+| controls.zoom-slider           | bool              | true                                                   | Specifies if map should display zoom slider or not                                                                      |
+| controls.full-screen-control   | bool              | false                                                  | Specifies if map should display full screen button or not                                                               |
+| controls.undo-control          | bool              | true                                                   | Specifies if map should display undo control or not (Only for `Polygon` and `MultiPolygon`)                             |
+| controls.clear-map-control     | bool              | true                                                   | Specifies if map should display clear map control or not (Only for `Polygon` and `MultiPolygon`)                        |
+| map-height                     | int               | 400                                                    | Specifies map height                                                                                                    |
+| icon                           | int               | 1                                                      | Specifies marker icon. available values: `1, 2, 3`                                                                      |
+| style.stroke-color             | string            | red                                                    | Using this property, you can specify stroke color of polygons or other shapes. Either in hexadecimal or as RGBA array   |
+| style.stroke-width             | int               | 2                                                      | Width of the stroke (px)                                                                                                |
+| style.fill-color               | string            | rgba(255, 0, 0, 0.4)                                   | Using this property, you can specify filling color of polygons or other shapes. Either in hexadecimal or as RGBA array. |
+| show-detail-button             | bool              | true                                                   | Specifies whether **Show Details** button should appear on detail pages or not                                          |
+| search.enable                  | bool              | true                                                   | Using this item, you can toggle displaying search box on maps                                                           |
+| search.provider                | MapSearchProvider | OSM                                                    | Specifies search provider available providers: `OSM, MAPQUEST, PHOTON, PELIAS, BING, OPENCAGE`                          |
+| search.api-key                 | string            | ''                                                     | Specifies API key if required                                                                                           |
+| search.autocomplete            | bool              | false                                                  | Using this item, you can toggle autocomplete feature for search box                                                     |
+| search.autocomplete-min-length | int               | 2                                                      | The minimum number of characters to trigger search                                                                      |
+| search.autocomplete-timeout    | int               | 200                                                    | The minimum number of ms to wait before triggering search action                                                        |
+| search.language                | string            | en-US                                                  | Specifies preferable language                                                                                           |
+| search.placeholder             | string            | Search for an address                                  | Specifies placeholder for text input                                                                                    |
+| search.box-type                | MapSearchBoxType  | TEXT_FIELD                                             | Specifies type of search box. available types: `BUTTON, TEXT_FIELD`                                                     |
+| search.limit                   | int               | 5                                                      | Specifies limit of results                                                                                              |
+| search.keep-open               | bool              | false                                                  | Specifies whether the results keep opened                                                                               |
+| transform.enable               | bool              | true                                                   | Using this item, you can toggle transforming polygons maps                                                              |
+| transform.scale                | bool              | true                                                   | Using this property, you can toggle scaling features                                                                    |
+| transform.scale                | bool              | true                                                   | Using this property, you can toggle rotating features                                                                   |
+| transform.stretch              | bool              | true                                                   | Using this property, you can enable/disable stretch option                                                              |
 
 ----
 
@@ -245,6 +249,8 @@ class Location extends Resource
                 
             MapPointField::make(trans('Location'), 'location')
                 ->templateUrl('https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+                ->projection('EPSG:3857')
+                ->srid(3857)
                 ->defaultLatitude(35.6978527)
                 ->defaultLongitude(51.4037269)
                 ->zoom(14)
