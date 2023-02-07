@@ -33,7 +33,7 @@ class MapPointField extends Field
             $result = json_decode($request->{$requestAttribute}, false);
 
             if ($result?->latitude and $result?->longitude) {
-                $model->{$attribute} = new Point($result->latitude, $result->longitude);
+                $model->{$attribute} = new Point($result->latitude, $result->longitude, $this->srid);
             }
         }
     }

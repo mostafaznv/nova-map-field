@@ -32,15 +32,18 @@ class MapMultiPolygonField extends Field
                     $points = [];
 
                     foreach ($polygon as $coordinate) {
-                        $points[] = new Point($coordinate[0], $coordinate[1]);
+                        $points[] = new Point($coordinate[0], $coordinate[1], $this->srid);
                     }
 
-                    $multiPolygon[] = new Polygon([
-                        new LineString($points)
-                    ]);
+                    $multiPolygon[] = new Polygon(
+                        geometries: [
+                            new LineString($points)
+                        ],
+                        srid: $this->srid
+                    );
                 }
 
-                $model->{$attribute} = new MultiPolygon($multiPolygon);
+                $model->{$attribute} = new MultiPolygon($multiPolygon, $this->srid);
             }
             else {
                 $model->{$attribute} = null;

@@ -10,6 +10,7 @@ trait WithMapProps
     private string $templateUrl;
 
     private ?string $defaultProjection;
+    private int     $srid;
     private ?float  $defaultLatitude;
     private ?float  $defaultLongitude;
     private int     $zoom;
@@ -66,6 +67,7 @@ trait WithMapProps
 
         $this->templateUrl = $config['template-url'];
         $this->defaultProjection = $config['default-projection'];
+        $this->srid = $config['srid'] ?? 0;
         $this->defaultLatitude = $config['default-latitude'];
         $this->defaultLongitude = $config['default-longitude'];
         $this->zoom = $config['zoom'];
@@ -110,6 +112,13 @@ trait WithMapProps
     public function defaultProjection(string $projection): self
     {
         $this->defaultProjection = $projection;
+
+        return $this;
+    }
+
+    public function srid(int $srid): self
+    {
+        $this->srid = $srid;
 
         return $this;
     }
@@ -318,6 +327,7 @@ trait WithMapProps
             'mapType'               => $this->mapType ?? 'POINT',
             'templateUrl'           => $this->templateUrl,
             'defaultProjection'     => $this->defaultProjection,
+            'srid'                  => $this->srid,
             'defaultLatitude'       => $this->defaultLatitude,
             'defaultLongitude'      => $this->defaultLongitude,
             'zoom'                  => $this->zoom,
