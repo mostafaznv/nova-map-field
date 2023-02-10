@@ -73,6 +73,7 @@ import {GeoJSON} from 'ol/format'
 import HasSearchBox from '../../mixins/HasSearchBox'
 import HasUndoControl from '../../mixins/HasUndoControl'
 import HasClearMapControl from '../../mixins/HasClearMapControl'
+import polylabel from 'polylabel'
 
 export default {
     mixins: [
@@ -123,6 +124,15 @@ export default {
 
             this.drawIsEnabled = false
             this.modifyIsEnabled = true
+
+            const center = polylabel(coordinates)
+
+            if (center[0] !== NaN){
+                return [
+                    center[0],
+                    center[1]
+                ]
+            }
 
             return coordinates[0][0]
         },
