@@ -21,13 +21,22 @@ export default {
 
             geocoder.on('addresschosen', (evt) => {
                 if (this.selectPointOnSearch) {
+                    geocoder.getSource().clear()
+
+                    if (this.initValue.longitude === null) {
+                        const layer = this.$refs.map.map.getAllLayers()[1]
+
+                        if (layer !== 'undefined') {
+                            layer.getSource().clear()
+                        }
+                    }
+
                     this.initValue = {
                         longitude: evt.coordinate[0],
                         latitude: evt.coordinate[1]
                     }
 
                     this.setValue(evt.coordinate[1], evt.coordinate[0])
-                    geocoder.getSource().clear();
                 }
                 else {
                     this.isDirty = true

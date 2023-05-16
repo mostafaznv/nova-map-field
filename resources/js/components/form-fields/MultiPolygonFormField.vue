@@ -14,7 +14,7 @@
                 <ol-source-osm :url="field.templateUrl" />
             </ol-tile-layer>
 
-            <ol-vector-layer :style="vectorStyle">
+            <ol-vector-layer :styles="vectorStyle">
                 <ol-source-vector ref="source" :features.sync="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
 import HasMap from '../../mixins/HasMap'
 import PolygonMixin from '../../mixins/PolygonMixin'
 import {fromLonLat, toLonLat} from 'ol/proj'
@@ -77,7 +76,7 @@ import polylabel from 'polylabel'
 
 export default {
     mixins: [
-        FormField, HandlesValidationErrors, HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
+        HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
     ],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {

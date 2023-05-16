@@ -33,13 +33,12 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
 import {toLonLat, fromLonLat} from 'ol/proj'
 import HasMap from '../../mixins/HasMap'
 import HasSearchBox from '../../mixins/HasSearchBox'
 
 export default {
-    mixins: [FormField, HandlesValidationErrors, HasMap, HasSearchBox],
+    mixins: [HasMap, HasSearchBox],
     props: ['resourceName', 'resourceId', 'field', 'readonly'],
     data() {
         return {
@@ -61,7 +60,7 @@ export default {
         },
 
         hasInitValue() {
-            return this.initValue.latitude && this.initValue.longitude
+            return !!this.initValue.latitude && !!this.initValue.longitude
         }
     },
     methods: {
