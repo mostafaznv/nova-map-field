@@ -61,7 +61,7 @@ export default {
         },
 
         hasInitValue() {
-            return this.initValue.latitude && this.initValue.longitude
+            return !!this.initValue.latitude && !!this.initValue.longitude
         }
     },
     methods: {
