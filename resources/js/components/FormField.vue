@@ -65,7 +65,9 @@ export default {
     },
     methods: {
         fill(formData) {
-            formData.append(this.field.attribute, this.fieldValue || '')
+            if (this.field.visible) {
+                formData.append(this.field.attribute, this.fieldValue || '')
+            }
         }
     }
 }
