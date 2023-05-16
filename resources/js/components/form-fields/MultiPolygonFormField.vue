@@ -14,7 +14,7 @@
                 <ol-source-osm :url="field.templateUrl" />
             </ol-tile-layer>
 
-            <ol-vector-layer :style="vectorStyle">
+            <ol-vector-layer :styles="vectorStyle">
                 <ol-source-vector ref="source" :features.sync="zones">
                     <ol-interaction-modify
                         v-if="isEditable"
