@@ -3,6 +3,7 @@
 namespace Mostafaznv\NovaMapField\Fields;
 
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\SupportsDependentFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use MatanYadaev\EloquentSpatial\Objects\LineString;
 use MatanYadaev\EloquentSpatial\Objects\MultiPolygon;
@@ -13,7 +14,7 @@ use Mostafaznv\NovaMapField\Traits\WithMapProps;
 
 class MapMultiPolygonField extends Field
 {
-    use WithMapProps;
+    use SupportsDependentFields, WithMapProps;
 
     public $component = 'nova-map-field';
 
