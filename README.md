@@ -214,9 +214,8 @@ To transform polygons, You should press `Alt` (Option `⌥`) button and drag tha
 
 ### Select Polygons
 
-To select polygons (and modify them), You can press `Shift` button and then click on the polygon. 
-By pressing the `Shift` key, drawing mode will be disabled and you can
-select every polygon you want.
+To select polygons (and modify them), You can press `Alt` (Option `⌥`) button and then click on the polygon. 
+By pressing the `Alt` (Option `⌥`) key, drawing mode will be disabled, and you can select every polygon you want.
 
 ----
 
