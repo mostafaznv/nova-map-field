@@ -19,8 +19,8 @@ class NovaMapFieldServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Nova::serving(function() {
-            Nova::style('nova-map-field', __DIR__ . '/../dist/css/field.css');
-            Nova::script('nova-map-field', __DIR__ . '/../dist/js/field.js');
+            Nova::style('nova-map-field', __DIR__ . '/../dist/field.css');
+            Nova::script('nova-map-field', __DIR__ . '/../dist/field.js');
         });
     }
 
