@@ -1,7 +1,7 @@
 /*!
-  * ol-contextmenu - v5.2.1
+  * ol-contextmenu - v5.3.0
   * https://github.com/jonataswalker/ol-contextmenu
-  * Built: Fri Mar 31 2023 20:27:32 GMT-0300 (Brasilia Standard Time)
+  * Built: Fri Sep 22 2023 13:13:39 GMT-0300 (Brasilia Standard Time)
   */
 
 /*!
@@ -18,10 +18,10 @@
  */
 
 /*!
- * ol-geocoder - v4.3.0
- * A geocoder extension compatible with OpenLayers v7+ & v8+
+ * ol-geocoder - v4.3.1
+ * A geocoder extension compatible with OpenLayers v6.x, v7.x & v8.x
  * https://github.com/Dominique92/ol-geocoder
- * Built: Tue Sep 05 2023 21:03:55 GMT+0200 (heure d’été d’Europe centrale)
+ * Built: 15/09/2023 16:57:41
  */
 
 /*!
