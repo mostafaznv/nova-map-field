@@ -3,7 +3,7 @@
         <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
                 :style="mapStyles">
             <ol-view
-                @centerChanged="setDirty"
+                @change:center="setDirty"
                 :center="center"
                 :rotation="rotation"
                 :zoom="zoom"

@@ -11,7 +11,17 @@ mix.setPublicPath('dist')
         },
         output: {
             uniqueName: 'mostafaznv/nova-map-field'
-        }
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.m?js/,
+                    resolve: {
+                        fullySpecified: false
+                    }
+                },
+            ],
+        },
     })
     .alias({
         'laravel-nova': path.join(
