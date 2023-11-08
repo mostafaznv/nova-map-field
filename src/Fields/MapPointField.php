@@ -8,16 +8,20 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Mostafaznv\NovaMapField\DTOs\PointValue;
 use Mostafaznv\NovaMapField\Rules\PointRequiredRule;
+use Mostafaznv\NovaMapField\Traits\CapturesScreenshot;
+use Mostafaznv\NovaMapField\Traits\HandlesValidation;
 use Mostafaznv\NovaMapField\Traits\WithMapProps;
+
 
 class MapPointField extends Field
 {
-    use SupportsDependentFields, WithMapProps;
+    use SupportsDependentFields, WithMapProps, HandlesValidation, CapturesScreenshot;
 
     public $component = 'nova-map-field';
 
-    private string      $mapType      = 'POINT';
-    private ?PointValue $defaultValue = null;
+    private string      $mapType              = 'POINT';
+    private ?PointValue $defaultValue         = null;
+    private string      $validationRulesClass = PointRequiredRule::class;
 
     public function markerIcon(int $icon): self
     {
@@ -28,21 +32,25 @@ class MapPointField extends Field
         return $this;
     }
 
-    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void
     {
-        if ($request->exists($requestAttribute)) {
-            $result = json_decode($request->{$requestAttribute}, false);
+        $this->validate($request, $attribute);
+
+        $mapAttribute = "$requestAttribute.value";
+
+        if ($request->exists($mapAttribute)) {
+            $result = json_decode($request->{$mapAttribute}, false);
 
             if ($result?->latitude and $result?->longitude) {
                 $model->{$attribute} = new Point($result->latitude, $result->longitude, $this->srid);
             }
         }
+
+        $this->storeScreenshot($request, $requestAttribute, $model, $attribute);
     }
 
     public function resolve($resource, $attribute = null): void
     {
-        $this->setRules();
-
         $attribute = $attribute ?? $this->attribute;
 
         if (is_null($resource->{$attribute}) and is_null($resource->id) and $this->defaultValue) {
@@ -66,18 +74,5 @@ class MapPointField extends Field
         }
 
         return $this;
-    }
-
-    public function setRules(): void
-    {
-        if ($this->required) {
-            $this->rules[] = new PointRequiredRule;
-        }
-        else if ($this->requiredOnCreate) {
-            $this->creationRules[] = new PointRequiredRule;
-        }
-        else if ($this->requiredOnUpdate) {
-            $this->updateRules[] = new PointRequiredRule;
-        }
     }
 }

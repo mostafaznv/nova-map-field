@@ -1,7 +1,12 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
-                :style="mapStyles">
+        <ol-map
+            ref="map"
+            @click="setDirty"
+            :load-tiles-while-animating="true"
+            :load-tiles-while-interacting="true"
+            :style="mapStyles"
+        >
             <ol-view
                 @change:center="setDirty"
                 :center="center"
@@ -11,7 +16,7 @@
             />
 
             <ol-tile-layer>
-                <ol-source-osm :url="field.templateUrl" />
+                <ol-source-osm :url="field.templateUrl"/>
             </ol-tile-layer>
 
             <ol-vector-layer :styles="vectorStyle">
@@ -30,23 +35,23 @@
                         :min-points="3"
                     />
 
-                    <ol-interaction-snap v-if="isEditable" />
+                    <ol-interaction-snap v-if="isEditable"/>
                 </ol-source-vector>
 
                 <ol-style>
-                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth" />
-                    <ol-style-fill :color="field.style.fillColor" />
+                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth"/>
+                    <ol-style-fill :color="field.style.fillColor"/>
 
                     <ol-style-circle :radius="7">
-                        <ol-style-fill color="blue" />
+                        <ol-style-fill color="blue"/>
                     </ol-style-circle>
                 </ol-style>
             </ol-vector-layer>
 
             <ol-interaction-select @select="featureSelected" :condition="selectCondition" :features="selectedFeatures">
                 <ol-style>
-                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth" />
-                    <ol-style-fill :color="field.style.fillColor" />
+                    <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth"/>
+                    <ol-style-fill :color="field.style.fillColor"/>
                 </ol-style>
             </ol-interaction-select>
 
@@ -57,9 +62,9 @@
                 :stretch="field.transform.stretch"
             />
 
-            <ol-zoom-control v-if="withZoomControl" />
-            <ol-zoomslider-control v-if="withZoomSlider" />
-            <ol-fullscreen-control v-if="withFullScreenControl" />
+            <ol-zoom-control v-if="withZoomControl"/>
+            <ol-zoomslider-control v-if="withZoomSlider"/>
+            <ol-fullscreen-control v-if="withFullScreenControl"/>
         </ol-map>
     </div>
 </template>
@@ -73,12 +78,18 @@ import HasSearchBox from '../../mixins/HasSearchBox'
 import HasUndoControl from '../../mixins/HasUndoControl'
 import HasClearMapControl from '../../mixins/HasClearMapControl'
 import polylabel from 'polylabel'
+import ExportsMap from '../../mixins/ExportsMap'
 
 export default {
     mixins: [
-        HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
+        HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl, ExportsMap
     ],
-    props: ['resourceName', 'resourceId', 'field', 'readonly'],
+    props: [
+        'resourceName', 'resourceId', 'field', 'readonly'
+    ],
+    expose: [
+        'capture', 'isDirty'
+    ],
     data() {
         return {
             values: [],
@@ -126,7 +137,7 @@ export default {
 
             const center = polylabel(coordinates)
 
-            if (center[0] !== NaN){
+            if (center[0] !== NaN) {
                 return [
                     center[0],
                     center[1]

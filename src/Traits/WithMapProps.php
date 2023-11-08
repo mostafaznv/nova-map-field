@@ -2,8 +2,10 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
+use Mostafaznv\NovaMapField\DTOs\Capture;
 use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
 use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
+
 
 trait WithMapProps
 {
@@ -55,6 +57,8 @@ trait WithMapProps
     private bool $required         = false;
     private bool $requiredOnCreate = false;
     private bool $requiredOnUpdate = false;
+
+    private ?Capture $capture = null;
 
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
@@ -298,6 +302,13 @@ trait WithMapProps
         return $this;
     }
 
+    public function capture(Capture $capture): self
+    {
+        $this->capture = $capture;
+
+        return $this;
+    }
+
     public function required($callback = true): self
     {
         $this->required = true;
@@ -339,6 +350,7 @@ trait WithMapProps
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,
             'showDetailButton'      => $this->showDetailButton,
+            'capture'               => $this->capture?->toArray(),
             'search'                => [
                 'isEnabled'             => $this->showSearchBox,
                 'provider'              => $this->searchProvider->getValue(),

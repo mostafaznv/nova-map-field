@@ -1,7 +1,12 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" @click="setDirty" :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
-                :style="mapStyles">
+        <ol-map
+            ref="map"
+            @click="setDirty"
+            :load-tiles-while-animating="true"
+            :load-tiles-while-interacting="true"
+            :style="mapStyles"
+        >
             <ol-view
                 @change:center="setDirty"
                 :center="center"
@@ -73,12 +78,18 @@ import HasSearchBox from '../../mixins/HasSearchBox'
 import HasUndoControl from '../../mixins/HasUndoControl'
 import HasClearMapControl from '../../mixins/HasClearMapControl'
 import polylabel from 'polylabel'
+import ExportsMap from '../../mixins/ExportsMap'
 
 export default {
     mixins: [
-        HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl
+        HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl, ExportsMap
     ],
-    props: ['resourceName', 'resourceId', 'field', 'readonly'],
+    props: [
+        'resourceName', 'resourceId', 'field', 'readonly'
+    ],
+    expose: [
+        'capture', 'isDirty'
+    ],
     methods: {
         initCenter() {
             let value = []

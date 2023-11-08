@@ -8,7 +8,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer>
-                <ol-source-vector :projection="projection">
+                <ol-source-vector ref="source" :projection="projection">
                     <ol-feature v-if="hasInitValue">
                         <ol-geom-point :coordinates="[initValue.longitude, initValue.latitude]" />
                     </ol-feature>
@@ -36,10 +36,18 @@
 import {toLonLat, fromLonLat} from 'ol/proj'
 import HasMap from '../../mixins/HasMap'
 import HasSearchBox from '../../mixins/HasSearchBox'
+import ExportsMap from '../../mixins/ExportsMap'
 
 export default {
-    mixins: [HasMap, HasSearchBox],
-    props: ['resourceName', 'resourceId', 'field', 'readonly'],
+    mixins: [
+        HasMap, HasSearchBox, ExportsMap
+    ],
+    props: [
+        'resourceName', 'resourceId', 'field', 'readonly'
+    ],
+    expose: [
+        'capture', 'isDirty'
+    ],
     data() {
         return {
             isDirty: false,

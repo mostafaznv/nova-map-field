@@ -10,21 +10,29 @@ use MatanYadaev\EloquentSpatial\Objects\MultiPolygon;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use Mostafaznv\NovaMapField\Rules\MultiPolygonRequiredRule;
+use Mostafaznv\NovaMapField\Traits\CapturesScreenshot;
+use Mostafaznv\NovaMapField\Traits\HandlesValidation;
 use Mostafaznv\NovaMapField\Traits\WithMapProps;
+
 
 class MapMultiPolygonField extends Field
 {
-    use SupportsDependentFields, WithMapProps;
+    use SupportsDependentFields, WithMapProps, HandlesValidation, CapturesScreenshot;
 
     public $component = 'nova-map-field';
 
-    private string $mapType = 'MULTI_POLYGON';
+    private string $mapType              = 'MULTI_POLYGON';
+    private string $validationRulesClass = MultiPolygonRequiredRule::class;
 
 
-    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void
     {
-        if ($request->exists($requestAttribute)) {
-            $polygons = json_decode($request->{$requestAttribute});
+        $this->validate($request, $attribute);
+
+        $mapAttribute = "$requestAttribute.value";
+
+        if ($request->exists($mapAttribute)) {
+            $polygons = json_decode($request->{$mapAttribute});
 
             if (is_array($polygons) and count($polygons)) {
                 $multiPolygon = [];
@@ -50,27 +58,14 @@ class MapMultiPolygonField extends Field
                 $model->{$attribute} = null;
             }
         }
+
+        $this->storeScreenshot($request, $requestAttribute, $model, $attribute);
     }
 
     public function resolve($resource, $attribute = null): void
     {
-        $this->setRules();
-
         $attribute = $attribute ?? $this->attribute;
 
         $this->value = json_encode($resource->{$attribute}?->getCoordinates() ?? []);
-    }
-
-    public function setRules(): void
-    {
-        if ($this->required) {
-            $this->rules[] = new MultiPolygonRequiredRule;
-        }
-        else if ($this->requiredOnCreate) {
-            $this->creationRules[] = new MultiPolygonRequiredRule;
-        }
-        else if ($this->requiredOnUpdate) {
-            $this->updateRules[] = new MultiPolygonRequiredRule;
-        }
     }
 }

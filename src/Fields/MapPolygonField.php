@@ -9,21 +9,29 @@ use MatanYadaev\EloquentSpatial\Objects\LineString;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use Mostafaznv\NovaMapField\Rules\PolygonRequiredRule;
+use Mostafaznv\NovaMapField\Traits\CapturesScreenshot;
+use Mostafaznv\NovaMapField\Traits\HandlesValidation;
 use Mostafaznv\NovaMapField\Traits\WithMapProps;
+
 
 class MapPolygonField extends Field
 {
-    use SupportsDependentFields, WithMapProps;
+    use SupportsDependentFields, WithMapProps, HandlesValidation, CapturesScreenshot;
 
     public $component = 'nova-map-field';
 
-    private string $mapType = 'POLYGON';
+    private string $mapType              = 'POLYGON';
+    private string $validationRulesClass = PolygonRequiredRule::class;
 
 
-    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void
     {
-        if ($request->exists($requestAttribute)) {
-            $coordinates = json_decode($request->{$requestAttribute});
+        $this->validate($request, $attribute);
+
+        $mapAttribute = "$requestAttribute.value";
+
+        if ($request->exists($mapAttribute)) {
+            $coordinates = json_decode($request->{$mapAttribute});
 
             if (is_array($coordinates) and count($coordinates) > 2) {
                 $points = [];
@@ -43,27 +51,14 @@ class MapPolygonField extends Field
                 $model->{$attribute} = null;
             }
         }
+
+        $this->storeScreenshot($request, $requestAttribute, $model, $attribute);
     }
 
     public function resolve($resource, $attribute = null): void
     {
-        $this->setRules();
-
         $attribute = $attribute ?? $this->attribute;
 
         $this->value = json_encode($resource->{$attribute}?->getCoordinates() ?? []);
-    }
-
-    public function setRules(): void
-    {
-        if ($this->required) {
-            $this->rules[] = new PolygonRequiredRule;
-        }
-        else if ($this->requiredOnCreate) {
-            $this->creationRules[] = new PolygonRequiredRule;
-        }
-        else if ($this->requiredOnUpdate) {
-            $this->updateRules[] = new PolygonRequiredRule;
-        }
     }
 }
