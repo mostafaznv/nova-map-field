@@ -97,7 +97,7 @@ export default {
             this.image = await this.$refs.mapField?.capture() || null
         },
 
-        async fill(formData) {
+        fill(formData) {
             if (this.currentField.visible) {
                 formData.append(this.currentField.attribute + '[value]', this.fieldValue || '')
                 formData.append(this.currentField.attribute + '[image]', this.image || '')

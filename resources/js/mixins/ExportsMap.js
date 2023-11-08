@@ -1,8 +1,31 @@
+import cloneDeep from 'lodash/cloneDeep'
+import {Map as M} from 'ol'
+
 class Map {
     constructor(map) {
-        this._map = map
+        this._id = 'map-' + Math.random().toString(36).substring(2, 9)
+
+        this.cloneMap()
+
+        this._map = new M({
+            layers: cloneDeep(map.getLayers()),
+            view: cloneDeep(map.getView()),
+            target: this._id
+        });
     }
 
+    destroy() {
+        this._map = null
+        document.getElementById(this._id).remove()
+    }
+
+
+    cloneMap() {
+        const div = document.createElement('div')
+        div.setAttribute('id', this._id)
+
+        document.body.appendChild(div)
+    }
 
     async sync() {
         await this._map.renderSync()
@@ -20,16 +43,8 @@ class Map {
         this._map.setSize([width, height])
     }
 
-    setZoom(zoom) {
-        this._map.getView().setZoom(zoom)
-    }
-
     setCenter(center) {
         this._map.getView().setCenter(center)
-    }
-
-    updateSize() {
-        this._map.updateSize()
     }
 
     async fit(extent, config) {
@@ -128,10 +143,9 @@ export default {
             const width = this.captureConfig.width
             const height = this.captureConfig.height
 
-            const currentZoom = map.getZoom()
-            const currentCenter = map.getCenter()
-
+            map.setCenter(map.getCenter())
             map.setSize(width, height)
+
             await map.sync()
 
             await map.fit(this.$refs.source.source.getExtent(), this.captureConfig)
@@ -139,11 +153,7 @@ export default {
 
             const file = await map.export(width, height)
 
-            map.updateSize()
-            map.setZoom(currentZoom)
-            map.setCenter(currentCenter)
-
-            await map.sync()
+            map.destroy()
 
             return file
         }
