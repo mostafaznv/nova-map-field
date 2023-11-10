@@ -123,43 +123,42 @@ Therefore, if you decide to use my packages, please kindly consider making a don
 
 5. ##### Done
 
-----
 
 ## Map Field Methods
 
-| method                      | Arguments                                | description                                                                    |
-|-----------------------------|------------------------------------------|--------------------------------------------------------------------------------|
-| templateUrl                 | url <br> `string`                        | Specifies template of map                                                      |
-| projection                  | projection <br> `string`                 | Specifies projection of map                                                    |
-| srid                        | srid <br> `integer` `default: 0`         | Specifies SRID of map                                                          |
-| defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                         |
-| defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                        |
-| zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                     |
-| withoutZoomControl          | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not              |
-| withoutZoomSlider           | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not                     |
-| withFullScreenControl       | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not              |
-| mapHeight                   | height <br> `integer` `default: 400`     | Map's height                                                                   |
-| hideDetailButton            | status <br> `bool` `default: true`       | Specifies whether **Show Details** button should appear on detail pages or not |
-| markerIcon                  | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                                    |
-| withSearchBox               | `boolean`                                | Specifies whether map has search box or not                                    |
-| searchProvider              | provider `MapSearchProvider`             |                                                                                |
-| searchProviderApiKey        | apiKey `string`                          | Specifies api key for search provider, if needed                               |
-| withAutocompleteSearch      | status `bool` `default: true`            | Specifies whether search results should load immediately or not                |
-| searchAutocompleteMinLength | minLength `int`                          | Specifies the minimum number of characters to trigger search action            |
-| searchAutocompleteTimeout   | timeout `int`                            | Specifies the minimum number of ms to wait before triggering search action     |
-| searchLanguage              | language `string`                        | Specifies preferable language                                                  |
-| searchPlaceholder           | placeholder `string`                     |                                                                                |
-| searchBoxType               | type `MapSearchBoxType`                  | Using this item, you can specify type of search box (button, or text-field     |
-| searchResultLimit           | limit `int`                              | Specifies limit of results                                                     |
-| searchResultKeepOpen        | status `boolean`                         | Specifies whether the results keep opened                                      |
-| withTransformation          | status `boolean`                         | Specifies whether transport feature should be enable on polygons               |
-| transformScale              | status `boolean`                         | Using this method, you can enable/disable scaling features                     |
-| transformRotate             | status `boolean`                         | Using this method, you can enable/disable rotating features                    |
-| transformStretch            | status `boolean`                         | Using this method, you can enable/disable stretch option                       |
-| requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                               |
-| requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                                 |
-| default                     | $callback <br> `PointValue`              | Set default value for map field. <br>**Note:** Only works in `MapPointField`   |
-
+| method                      | Arguments                                | description                                                                                                                        |
+|-----------------------------|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| templateUrl                 | url <br> `string`                        | Specifies template of map                                                                                                          |
+| projection                  | projection <br> `string`                 | Specifies projection of map                                                                                                        |
+| srid                        | srid <br> `integer` `default: 0`         | Specifies SRID of map                                                                                                              |
+| defaultLatitude             | latitude <br> `float`                    | Specifies latitude of map on page load                                                                                             |
+| defaultLongitude            | longitude <br> `float`                   | Specifies longitude of map on page load                                                                                            |
+| zoom                        | zoom <br> `integer`                      | Specifies default map zoom                                                                                                         |
+| withoutZoomControl          | status <br> `bool` `default: true`       | Specifies whether zoom in/out button should display on map or not                                                                  |
+| withoutZoomSlider           | status <br> `bool` `default: true`       | Specifies whether zoom slider should display on map or not                                                                         |
+| withFullScreenControl       | status <br> `bool` `default: true`       | Specifies whether full screen button should display on map or not                                                                  |
+| mapHeight                   | height <br> `integer` `default: 400`     | Map's height                                                                                                                       |
+| hideDetailButton            | status <br> `bool` `default: true`       | Specifies whether **Show Details** button should appear on detail pages or not                                                     |
+| markerIcon                  | icon <br> `integer` `available: 1, 2, 3` | Marker icon                                                                                                                        |
+| withSearchBox               | `boolean`                                | Specifies whether map has search box or not                                                                                        |
+| searchProvider              | provider `MapSearchProvider`             |                                                                                                                                    |
+| searchProviderApiKey        | apiKey `string`                          | Specifies api key for search provider, if needed                                                                                   |
+| withAutocompleteSearch      | status `bool` `default: true`            | Specifies whether search results should load immediately or not                                                                    |
+| searchAutocompleteMinLength | minLength `int`                          | Specifies the minimum number of characters to trigger search action                                                                |
+| searchAutocompleteTimeout   | timeout `int`                            | Specifies the minimum number of ms to wait before triggering search action                                                         |
+| searchLanguage              | language `string`                        | Specifies preferable language                                                                                                      |
+| searchPlaceholder           | placeholder `string`                     |                                                                                                                                    |
+| searchBoxType               | type `MapSearchBoxType`                  | Using this item, you can specify type of search box (button, or text-field                                                         |
+| searchResultLimit           | limit `int`                              | Specifies limit of results                                                                                                         |
+| searchResultKeepOpen        | status `boolean`                         | Specifies whether the results keep opened                                                                                          |
+| withTransformation          | status `boolean`                         | Specifies whether transport feature should be enable on polygons                                                                   |
+| transformScale              | status `boolean`                         | Using this method, you can enable/disable scaling features                                                                         |
+| transformRotate             | status `boolean`                         | Using this method, you can enable/disable rotating features                                                                        |
+| transformStretch            | status `boolean`                         | Using this method, you can enable/disable stretch option                                                                           |
+| requiredOnCreate            | status <br> `bool` `default: true`       | Makes field required on creation                                                                                                   |
+| requiredOnUpdate            | status <br> `bool` `default: true`       | Makes field required on update                                                                                                     |
+| default                     | $callback <br> `PointValue`              | Set default value for map field. <br>**Note:** Only works in `MapPointField`                                                       |
+| capture                     | capture <br> `Capture` `experimental`    | By employing this method, you can capture a screenshot reflecting the current state of the map field and save it to the filesystem |
 
 ## Config Properties
 
@@ -198,13 +197,60 @@ Therefore, if you decide to use my packages, please kindly consider making a don
 | transform.scale                | bool              | true                                                   | Using this property, you can toggle rotating features                                                                   |
 | transform.stretch              | bool              | true                                                   | Using this property, you can enable/disable stretch option                                                              |
 
-----
+
+## Capture Screenshot
+Utilizing this method enables the capture of a screenshot that mirrors the current state of the map field, subsequently saving it to the filesystem. It is important to note that this feature is `experimental` and its performance may vary. The underlying mechanism operates by generating an image on the client's machine each time the client/admin modifies the map field state. Subsequently, this image is transmitted to the server, where it is then stored in the filesystem.
+
+To enable this feature, you must first add the `capture` method to your map field. This method accepts a single argument, which is an instance of the `Capture` class.
+```php
+<?php
+
+namespace App\Nova\Resources;
+
+use App\Nova\Resource;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use App\Models\Location as Model;
+use Mostafaznv\NovaMapField\DTOs\Capture;
+use Mostafaznv\NovaMapField\Fields\MapPointField;
+
+class Location extends Resource
+{
+    public static string $model = Model::class;
+
+    public function fields(Request $request): array
+    {
+        return [
+            ID::make()->sortable(),
+
+            MapPointField::make(trans('Location'), 'location')
+                ->capture(
+                     Capture::make('location_screenshot', 600, 600)
+                        ->disk('location')
+                        ->maxZoom(9)
+                        ->padding([10, 10, 10, 10])
+                        ->nearest(true)
+                        ->prunable(true)
+                ),
+
+            Image::make(trans('Location Screenshot'), 'location_screenshot')
+                ->disk('location')
+                ->prunable()
+                ->exceptOnForms(),
+        ];
+    }
+}
+```
+
+> [!NOTE]  
+> Activating this feature is as straightforward as calling the static `make` function of `Capture`. Nevertheless, for those seeking to tailor the behavior of this functionality, alternative methods are available for customization.
+
 
 ## Using Spatial Columns over Application
 
 This package uses [Laravel Eloquent Spatial](https://github.com/MatanYadaev/laravel-eloquent-spatial/) under the hood. to use columns and querying them over the application, please read **Laravel Eloquent Spatial** documentation
 
-----
 
 ## Tricks
 
@@ -230,6 +276,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use App\Models\Location as Model;
+use Mostafaznv\NovaMapField\DTOs\Capture;
 use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
 use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
 use Mostafaznv\NovaMapField\DTOs\PointValue;
@@ -280,6 +327,15 @@ class Location extends Resource
                 ->requiredOnCreate()
                 ->requiredOnUpdate()
                 ->stacked()
+                ->capture(
+                    Capture::make('location_screenshot', 600, 600)
+                        ->disk('location')
+                        ->maxZoom(9)
+                        ->padding([10, 10, 10, 10])
+                        ->nearest(true)
+                        ->prunable(true)
+                    
+                )
                 ->default(
                     PointValue::make(51.5887845, 4.7760237)
                 ),
