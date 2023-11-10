@@ -21,8 +21,8 @@ class MapMultiPolygonField extends Field
 
     public $component = 'nova-map-field';
 
-    private string $mapType              = 'MULTI_POLYGON';
-    private string $validationRulesClass = MultiPolygonRequiredRule::class;
+    private string   $mapType              = 'MULTI_POLYGON';
+    protected string $validationRulesClass = MultiPolygonRequiredRule::class;
 
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void

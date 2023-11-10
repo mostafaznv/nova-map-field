@@ -57,10 +57,7 @@ export default {
                 longitude: null,
                 latitude: null
             },
-            fieldValue: {
-                longitude: null,
-                latitude: null
-            }
+            fieldValue: ''
         }
     },
     computed: {

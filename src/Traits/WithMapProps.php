@@ -2,6 +2,7 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
+use Illuminate\Support\Arr;
 use Mostafaznv\NovaMapField\DTOs\Capture;
 use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
 use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
@@ -53,10 +54,6 @@ trait WithMapProps
     private bool $transformScale;
     private bool $transformRotate;
     private bool $transformStretch;
-
-    private bool $required         = false;
-    private bool $requiredOnCreate = false;
-    private bool $requiredOnUpdate = false;
 
     private ?Capture $capture = null;
 
@@ -305,28 +302,6 @@ trait WithMapProps
     public function capture(Capture $capture): self
     {
         $this->capture = $capture;
-
-        return $this;
-    }
-
-    public function required($callback = true): self
-    {
-        $this->required = true;
-        $this->requiredCallback = $callback;
-
-        return $this;
-    }
-
-    public function requiredOnCreate(bool $status = true): self
-    {
-        $this->requiredOnCreate = $status;
-
-        return $this;
-    }
-
-    public function requiredOnUpdate(bool $status = true): self
-    {
-        $this->requiredOnUpdate = $status;
 
         return $this;
     }

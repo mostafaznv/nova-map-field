@@ -20,8 +20,8 @@ class MapPolygonField extends Field
 
     public $component = 'nova-map-field';
 
-    private string $mapType              = 'POLYGON';
-    private string $validationRulesClass = PolygonRequiredRule::class;
+    private string   $mapType              = 'POLYGON';
+    protected string $validationRulesClass = PolygonRequiredRule::class;
 
 
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void

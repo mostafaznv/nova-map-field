@@ -8,23 +8,27 @@ class PolygonRequiredRule implements Rule
 {
     public function passes($attribute, $value): bool
     {
-        $coordinates = json_decode($value);
+        if ($value) {
+            $coordinates = json_decode($value);
 
-        if (is_array($coordinates) and count($coordinates) >= 3) {
-            foreach ($coordinates as $coordinate) {
-                if (!is_array($coordinate) or count($coordinate) !== 2) {
-                    return false;
+            if (is_array($coordinates) and count($coordinates) >= 3) {
+                foreach ($coordinates as $coordinate) {
+                    if (!is_array($coordinate) or count($coordinate) !== 2) {
+                        return false;
+                    }
                 }
+
+                return true;
             }
 
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public function message(): string
     {
-        return __('This field is required');
+        return __('The :attribute must be a geometry polygon.');
     }
 }

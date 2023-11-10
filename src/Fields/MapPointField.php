@@ -21,7 +21,7 @@ class MapPointField extends Field
 
     private string      $mapType              = 'POINT';
     private ?PointValue $defaultValue         = null;
-    private string      $validationRulesClass = PointRequiredRule::class;
+    protected string    $validationRulesClass = PointRequiredRule::class;
 
     public function markerIcon(int $icon): self
     {

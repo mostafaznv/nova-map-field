@@ -2,6 +2,7 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
+use Illuminate\Support\Arr;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Mostafaznv\NovaMapField\Fields\MapMultiPolygonField;
 use Mostafaznv\NovaMapField\Fields\MapPointField;
@@ -90,26 +91,79 @@ trait HandlesValidation
             }
 
             if (!empty($this->attribute) && is_null($callback)) {
-                $rules = $this->mapRules;
-                $creationRules = array_merge_recursive($this->mapCreationRules, $rules);
-                $updateRules = array_merge_recursive($this->mapUpdateRules, $rules);
-
                 if ($request->isResourceIndexRequest() || $request->isActionRequest()) {
-                    return $this->required or $this->requiredOnCreate or in_array('required', $creationRules);
+                    return in_array('required', $this->mapRules) or in_array('required', $this->mapCreationRules);
                 }
 
                 if ($request->isCreateOrAttachRequest()) {
-                    return $this->required or $this->requiredOnCreate or in_array('required', $creationRules);
+                    return in_array('required', $this->mapRules) or in_array('required', $this->mapCreationRules);
                 }
 
                 if ($request->isUpdateOrUpdateAttachedRequest()) {
-                    return $this->required or $this->requiredOnUpdate or in_array('required', $updateRules);
+                    return in_array('required', $this->mapRules) or in_array('required', $this->mapUpdateRules);
                 }
             }
 
             return false;
         });
     }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function required($callback = true): self
+    {
+        parent::required($callback);
+
+        if (!Arr::exists($this->mapRules, 'required')) {
+            $this->mapRules[] = 'required';
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set required rule for the map creation field
+     *
+     * @param bool $status
+     * @return MapPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
+     */
+    public function requiredOnCreate(bool $status = true): self
+    {
+        if ($status) {
+            if (!Arr::exists($this->mapCreationRules, 'required')) {
+                $this->mapCreationRules[] = 'required';
+            }
+        }
+        else {
+            $this->mapCreationRules = Arr::except($this->mapCreationRules, ['required']);
+        }
+
+
+        return $this;
+    }
+
+    /**
+     * Set required rule for the map update field
+     *
+     * @param bool $status
+     * @return MapPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
+     */
+    public function requiredOnUpdate(bool $status = true): self
+    {
+        if ($status) {
+            if (!Arr::exists($this->mapUpdateRules, 'required')) {
+                $this->mapUpdateRules[] = 'required';
+            }
+        }
+        else {
+            $this->mapUpdateRules = Arr::except($this->mapUpdateRules, ['required']);
+        }
+
+        return $this;
+    }
+
 
     /**
      * Custom validation for nova-map-field fields
@@ -125,19 +179,12 @@ trait HandlesValidation
 
         $rules = $this->mapRules;
 
-        if ($this->required) {
-            $rules = array_merge_recursive($rules, [new $this->validationRulesClass]);
-        }
-        else if ($this->requiredOnCreate) {
-            $rules = array_merge_recursive($rules, [new $this->validationRulesClass]);
-        }
-        else if ($this->requiredOnUpdate) {
-            $rules = array_merge_recursive($rules, [new $this->validationRulesClass]);
-        }
-
-
         if ($request->isCreateOrAttachRequest()) {
-            $creationRules = array_merge_recursive($this->mapCreationRules, $rules);
+            $creationRules = array_merge_recursive(
+                $this->mapCreationRules,
+                $rules,
+                [new $this->validationRulesClass]
+            );
 
             $request->validate([
                 $originalAttribute   => $creationRules,
@@ -145,7 +192,11 @@ trait HandlesValidation
             ]);
         }
         else if ($request->isUpdateOrUpdateAttachedRequest()) {
-            $updateRules = array_merge_recursive($this->mapUpdateRules, $rules);
+            $updateRules = array_merge_recursive(
+                $this->mapUpdateRules,
+                $rules,
+                [new $this->validationRulesClass]
+            );
 
             $request->validate([
                 $originalAttribute   => $updateRules,
