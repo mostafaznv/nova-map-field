@@ -22,20 +22,20 @@
             <ol-vector-layer :styles="vectorStyle">
                 <ol-source-vector ref="source" :features.sync="zones">
                     <ol-interaction-modify
-                        v-if="isEditable"
+                        v-if="isEditable && !exportable"
                         @modifyend="onModifyEnd"
                         :features="selectedFeatures"
                     />
 
                     <ol-interaction-draw
-                        v-if="isDrawable"
+                        v-if="isDrawable && !exportable"
                         @drawend="onDrawEnd"
                         type="Polygon"
                         :stopClick="true"
                         :min-points="3"
                     />
 
-                    <ol-interaction-snap v-if="isEditable"/>
+                    <ol-interaction-snap v-if="isEditable && !exportable"/>
                 </ol-source-vector>
 
                 <ol-style>
@@ -48,7 +48,12 @@
                 </ol-style>
             </ol-vector-layer>
 
-            <ol-interaction-select @select="featureSelected" :condition="selectCondition" :features="selectedFeatures">
+            <ol-interaction-select
+                v-if="!exportable"
+                @select="featureSelected"
+                :condition="selectCondition"
+                :features="selectedFeatures"
+            >
                 <ol-style>
                     <ol-style-stroke :color="field.style.strokeColor" :width="field.style.strokeWidth"/>
                     <ol-style-fill :color="field.style.fillColor"/>
@@ -56,15 +61,16 @@
             </ol-interaction-select>
 
             <ol-interaction-transform
+                v-if="!exportable"
                 :condition="isTransformable"
                 :scale="field.transform.scale"
                 :rotate="field.transform.rotate"
                 :stretch="field.transform.stretch"
             />
 
-            <ol-zoom-control v-if="withZoomControl"/>
-            <ol-zoomslider-control v-if="withZoomSlider"/>
-            <ol-fullscreen-control v-if="withFullScreenControl"/>
+            <ol-zoom-control v-if="withZoomControl && !exportable"/>
+            <ol-zoomslider-control v-if="withZoomSlider && !exportable"/>
+            <ol-fullscreen-control v-if="withFullScreenControl && !exportable"/>
         </ol-map>
     </div>
 </template>
@@ -80,6 +86,7 @@ import HasClearMapControl from '../../mixins/HasClearMapControl'
 import polylabel from 'polylabel'
 import ExportsMap from '../../mixins/ExportsMap'
 
+
 export default {
     mixins: [
         HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl, ExportsMap
@@ -88,7 +95,7 @@ export default {
         'resourceName', 'resourceId', 'field', 'readonly'
     ],
     expose: [
-        'capture', 'isDirty'
+        'initCenter', 'initZones', 'capture', 'isDirty'
     ],
     data() {
         return {

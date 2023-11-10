@@ -4,7 +4,7 @@
             <div
                 class="z-10 p-0 w-full form-control form-input-bordered overflow-hidden relative"
                 :class="mapErrorClasses"
-                :style="{height: currentField.mapHeight + 'px'}"
+                :style="{height: (currentField.mapHeight) + 'px'}"
             >
                 <point-form-field
                     v-if="mapType === 'POINT'"
@@ -33,6 +33,13 @@
                     :resource-name="resourceName"
                 />
             </div>
+
+            <map-export
+                v-if="currentField?.capture?.enabled"
+                v-model="image"
+                :field="currentField"
+                :field-value="fieldValue"
+            />
         </template>
     </default-field>
 </template>
@@ -42,12 +49,14 @@ import {DependentFormField, HandlesValidationErrors, Errors} from 'laravel-nova'
 import PointFormField from './form-fields/PointFormField'
 import PolygonFormField from './form-fields/PolygonFormField'
 import MultiPolygonFormField from './form-fields/MultiPolygonFormField'
+import MapExport from './other/MapExport'
 
 
 export default {
     mixins: [DependentFormField, HandlesValidationErrors],
     props: ['resourceName', 'resourceId', 'field'],
     components: {
+        MapExport,
         PolygonFormField,
         MultiPolygonFormField,
         PointFormField
@@ -60,7 +69,6 @@ export default {
     },
     watch: {
         fieldValue(value) {
-            this.screenshot()
             this.emitFieldValueChange(this.currentField.attribute, value)
         }
     },
@@ -93,10 +101,6 @@ export default {
         }
     },
     methods: {
-        async screenshot() {
-            this.image = await this.$refs.mapField?.capture() || null
-        },
-
         fill(formData) {
             if (this.currentField.visible) {
                 formData.append(this.currentField.attribute + '[value]', this.fieldValue || '')

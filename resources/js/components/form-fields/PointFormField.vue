@@ -13,7 +13,7 @@
                         <ol-geom-point :coordinates="[initValue.longitude, initValue.latitude]" />
                     </ol-feature>
 
-                    <template v-if="!isReadonly">
+                    <template v-if="!isReadonly && !exportable">
                         <ol-interaction-modify v-if="isDirty" @modifyend="onModifyEnd" />
                         <ol-interaction-draw v-else type="Point" @drawend="onDrawEnd" />
                     </template>
@@ -25,9 +25,9 @@
             </ol-vector-layer>
 
 
-            <ol-zoom-control v-if="withZoomControl" />
-            <ol-zoomslider-control v-if="withZoomSlider" />
-            <ol-fullscreen-control v-if="withFullScreenControl" />
+            <ol-zoom-control v-if="withZoomControl && !exportable" />
+            <ol-zoomslider-control v-if="withZoomSlider && !exportable" />
+            <ol-fullscreen-control v-if="withFullScreenControl && !exportable" />
         </ol-map>
     </div>
 </template>
@@ -38,6 +38,7 @@ import HasMap from '../../mixins/HasMap'
 import HasSearchBox from '../../mixins/HasSearchBox'
 import ExportsMap from '../../mixins/ExportsMap'
 
+
 export default {
     mixins: [
         HasMap, HasSearchBox, ExportsMap
@@ -46,7 +47,7 @@ export default {
         'resourceName', 'resourceId', 'field', 'readonly'
     ],
     expose: [
-        'capture', 'isDirty'
+        'initCenter', 'capture', 'isDirty'
     ],
     data() {
         return {
