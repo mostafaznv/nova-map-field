@@ -92,7 +92,7 @@ export default {
         HasMap, PolygonMixin, HasSearchBox, HasUndoControl, HasClearMapControl, ExportsMap
     ],
     props: [
-        'resourceName', 'resourceId', 'field', 'readonly'
+        'field', 'readonly'
     ],
     expose: [
         'initCenter', 'initZones', 'capture', 'isDirty'

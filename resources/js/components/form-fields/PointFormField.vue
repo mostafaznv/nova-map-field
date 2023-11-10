@@ -44,7 +44,7 @@ export default {
         HasMap, HasSearchBox, ExportsMap
     ],
     props: [
-        'resourceName', 'resourceId', 'field', 'readonly'
+        'field', 'readonly'
     ],
     expose: [
         'initCenter', 'capture', 'isDirty'
