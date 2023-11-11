@@ -2,8 +2,11 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
+use Illuminate\Support\Arr;
+use Mostafaznv\NovaMapField\DTOs\Capture;
 use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
 use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
+
 
 trait WithMapProps
 {
@@ -52,9 +55,7 @@ trait WithMapProps
     private bool $transformRotate;
     private bool $transformStretch;
 
-    private bool $required         = false;
-    private bool $requiredOnCreate = false;
-    private bool $requiredOnUpdate = false;
+    private ?Capture $capture = null;
 
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
@@ -298,24 +299,9 @@ trait WithMapProps
         return $this;
     }
 
-    public function required($callback = true): self
+    public function capture(Capture $capture): self
     {
-        $this->required = true;
-        $this->requiredCallback = $callback;
-
-        return $this;
-    }
-
-    public function requiredOnCreate(bool $status = true): self
-    {
-        $this->requiredOnCreate = $status;
-
-        return $this;
-    }
-
-    public function requiredOnUpdate(bool $status = true): self
-    {
-        $this->requiredOnUpdate = $status;
+        $this->capture = $capture;
 
         return $this;
     }
@@ -339,6 +325,7 @@ trait WithMapProps
             'mapHeight'             => $this->mapHeight,
             'markerIcon'            => $this->markerIcon,
             'showDetailButton'      => $this->showDetailButton,
+            'capture'               => $this->capture?->toArray(),
             'search'                => [
                 'isEnabled'             => $this->showSearchBox,
                 'provider'              => $this->searchProvider->getValue(),

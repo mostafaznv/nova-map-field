@@ -1,6 +1,6 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles" :controls="[]">
             <ol-view :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
 
             <ol-tile-layer>
@@ -8,12 +8,12 @@
             </ol-tile-layer>
 
             <ol-vector-layer>
-                <ol-source-vector :projection="projection">
+                <ol-source-vector ref="source" :projection="projection">
                     <ol-feature v-if="hasInitValue">
                         <ol-geom-point :coordinates="[initValue.longitude, initValue.latitude]" />
                     </ol-feature>
 
-                    <template v-if="!isReadonly">
+                    <template v-if="!isReadonly && !exportable">
                         <ol-interaction-modify v-if="isDirty" @modifyend="onModifyEnd" />
                         <ol-interaction-draw v-else type="Point" @drawend="onDrawEnd" />
                     </template>
@@ -25,9 +25,9 @@
             </ol-vector-layer>
 
 
-            <ol-zoom-control v-if="withZoomControl" />
-            <ol-zoomslider-control v-if="withZoomSlider" />
-            <ol-fullscreen-control v-if="withFullScreenControl" />
+            <ol-zoom-control v-if="withZoomControl && !exportable" />
+            <ol-zoomslider-control v-if="withZoomSlider && !exportable" />
+            <ol-fullscreen-control v-if="withFullScreenControl && !exportable" />
         </ol-map>
     </div>
 </template>
@@ -36,10 +36,19 @@
 import {toLonLat, fromLonLat} from 'ol/proj'
 import HasMap from '../../mixins/HasMap'
 import HasSearchBox from '../../mixins/HasSearchBox'
+import ExportsMap from '../../mixins/ExportsMap'
+
 
 export default {
-    mixins: [HasMap, HasSearchBox],
-    props: ['resourceName', 'resourceId', 'field', 'readonly'],
+    mixins: [
+        HasMap, HasSearchBox, ExportsMap
+    ],
+    props: [
+        'field', 'readonly'
+    ],
+    expose: [
+        'initCenter', 'capture', 'isDirty'
+    ],
     data() {
         return {
             isDirty: false,
@@ -48,10 +57,7 @@ export default {
                 longitude: null,
                 latitude: null
             },
-            fieldValue: {
-                longitude: null,
-                latitude: null
-            }
+            fieldValue: ''
         }
     },
     computed: {

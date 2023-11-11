@@ -3,8 +3,9 @@ import Geocoder from 'ol-geocoder'
 export default {
     mounted() {
         const search = this.field.search
+        const isExportable = this.exportable === true
 
-        if (search.isEnabled && !this.isReadonly) {
+        if (search.isEnabled && !this.isReadonly && !isExportable) {
             const geocoder = new Geocoder('nominatim', {
                 provider: search.provider,
                 key: search.apiKey || '',

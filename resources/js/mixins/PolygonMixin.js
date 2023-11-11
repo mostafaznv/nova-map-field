@@ -3,7 +3,7 @@ import {Fill, Stroke, Style} from 'ol/style'
 import {altKeyOnly, shiftKeyOnly} from 'ol/events/condition'
 import {getCenter} from 'ol/extent'
 import {inject} from 'vue'
-import {debounce} from 'lodash'
+import debounce from 'lodash/debounce'
 
 export default {
     data() {
