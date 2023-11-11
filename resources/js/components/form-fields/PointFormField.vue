@@ -1,6 +1,6 @@
 <template>
     <div class="map-container">
-        <ol-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles">
+        <ol-map ref="map" :load-tiles-while-animating="true" :load-tiles-while-interacting="true" :style="mapStyles" :controls="[]">
             <ol-view :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
 
             <ol-tile-layer>

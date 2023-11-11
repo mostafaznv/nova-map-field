@@ -6,6 +6,7 @@
             :load-tiles-while-animating="true"
             :load-tiles-while-interacting="true"
             :style="mapStyles"
+            :controls="[]"
         >
             <ol-view
                 @change:center="setDirty"
