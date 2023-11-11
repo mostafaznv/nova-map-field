@@ -4,7 +4,7 @@
             <div
                 class="z-10 p-0 w-full form-control form-input-bordered overflow-hidden relative"
                 :class="mapErrorClasses"
-                :style="{height: (currentField.mapHeight) + 'px'}"
+                :style="{height: currentField.mapHeight + 'px'}"
             >
                 <point-form-field
                     v-if="mapType === 'POINT'"
