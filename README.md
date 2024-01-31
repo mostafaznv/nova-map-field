@@ -13,14 +13,6 @@ https://github.com/mostafaznv/nova-map-field/assets/7619687/08ca878b-1bfc-4a11-b
 
 ----
 
-I am on an open-source journey 🚀, and I wish I could solely focus on my development path without worrying about my financial situation. However, as life is not perfect, I have to consider other factors.
-
-Therefore, if you decide to use my packages, please kindly consider making a donation. Any amount, no matter how small, goes a long way and is greatly appreciated. 🍺
-
-[![Donate](https://mostafaznv.github.io/donate/donate.svg)](https://mostafaznv.github.io/donate)
-
-----
-
 
 ## Requirements:
 

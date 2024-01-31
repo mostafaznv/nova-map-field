@@ -1,5 +1,5 @@
 {
-    "name": "mostafaznv/nova-map-field",
+    "name": "speedgoat/nova-map-field",
     "description": "Map Field for Laravel Nova",
     "keywords": [
         "laravel",
@@ -21,13 +21,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Mostafaznv\\NovaMapField\\": "src/"
+            "Speedgoat\\NovaMapField\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Mostafaznv\\NovaMapField\\NovaMapFieldServiceProvider"
+                "Speedgoat\\NovaMapField\\NovaMapFieldServiceProvider"
             ]
         }
     },
