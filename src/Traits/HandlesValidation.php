@@ -83,7 +83,7 @@ trait HandlesValidation
     /**
      * @inheritDoc
      */
-    public function isRequired(NovaRequest $request)
+    public function isRequired(NovaRequest $request): bool
     {
         return with($this->requiredCallback, function ($callback) use ($request) {
             if ($callback === true || (is_callable($callback) && call_user_func($callback, $request))) {
