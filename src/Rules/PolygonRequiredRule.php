@@ -2,11 +2,16 @@
 
 namespace Mostafaznv\NovaMapField\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class PolygonRequiredRule implements Rule
+
+class PolygonRequiredRule implements ValidationRule
 {
-    public function passes($attribute, $value): bool
+    private string $message = 'The :attribute must be a geometry polygon.';
+
+
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if ($value) {
             $coordinates = json_decode($value);
@@ -14,21 +19,14 @@ class PolygonRequiredRule implements Rule
             if (is_array($coordinates) and count($coordinates) >= 3) {
                 foreach ($coordinates as $coordinate) {
                     if (!is_array($coordinate) or count($coordinate) !== 2) {
-                        return false;
+                        $fail(__($this->message));
                     }
                 }
 
-                return true;
+                return;
             }
 
-            return false;
+            $fail(__($this->message));
         }
-
-        return true;
-    }
-
-    public function message(): string
-    {
-        return __('The :attribute must be a geometry polygon.');
     }
 }

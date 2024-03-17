@@ -2,24 +2,25 @@
 
 namespace Mostafaznv\NovaMapField\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 
-class PointRequiredRule implements Rule
+class PointRequiredRule implements ValidationRule
 {
-    public function passes($attribute, $value): bool
+    private string $message = 'The :attribute must be a geometry point.';
+
+
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if ($value) {
             $value = json_decode($value);
 
-            return is_object($value) and $value?->latitude and $value?->longitude;
+            if (is_object($value) and $value?->latitude and $value?->longitude) {
+                return;
+            }
+
+            $fail(__($this->message));
         }
-
-        return true;
-    }
-
-    public function message(): string
-    {
-        return __('The :attribute must be a geometry point.');
     }
 }
