@@ -2,9 +2,13 @@
 
 namespace Mostafaznv\NovaMapField\DTOs;
 
+
 class PointValue
 {
-    public function __construct(private float $latitude, private float $longitude) {}
+    public function __construct(
+        private readonly float $latitude,
+        private readonly float $longitude
+    ) {}
 
     public static function make(float $latitude, float $longitude): self
     {
