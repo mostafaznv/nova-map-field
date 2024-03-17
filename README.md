@@ -25,7 +25,16 @@ Therefore, if you decide to use my packages, please kindly consider making a don
 ## Requirements:
 
 - PHP 8.0.2 or higher
-- Laravel 8 or higher
+- Laravel 10.* or higher
+
+
+## Laravel Compatibility
+
+| Laravel       | PHP    | Nova Map Field                                                  |
+|---------------|--------|-----------------------------------------------------------------|
+| ^8.0 - ^9.0   | ^8.0.2 | [^3.0](https://github.com/mostafaznv/nova-map-field/tree/3.2.0) |
+| ^10.0 - ^11.0 | ^8.1   | ^4.0 (latest)                                                   |
+
 
 
 ## Installation
@@ -65,17 +74,18 @@ Therefore, if you decide to use my packages, please kindly consider making a don
     };
     ```
 
-2. ##### Add `HasSpatialColumns` trait to model
+2. ##### Add `HasSpatial` trait to model
     ```php
     <?php
     
     namespace App\Models;
     
-    use Mostafaznv\NovaMapField\Traits\HasSpatialColumns;
+    use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+   
     
     class Location extends Model
     {
-        use HasSpatialColumns;
+        use HasSpatial;
     }
     ```
 
@@ -88,10 +98,12 @@ Therefore, if you decide to use my packages, please kindly consider making a don
     use MatanYadaev\EloquentSpatial\Objects\MultiPolygon;
     use MatanYadaev\EloquentSpatial\Objects\Point;
     use MatanYadaev\EloquentSpatial\Objects\Polygon;
+    use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
     
+   
     class Location extends Model
     {
-        use HasSpatialColumns;
+        use HasSpatial;
 
         protected $casts = [
             'location' => Point::class,
@@ -111,6 +123,7 @@ Therefore, if you decide to use my packages, please kindly consider making a don
     use Mostafaznv\NovaMapField\Fields\MapPointField;
     use Mostafaznv\NovaMapField\Fields\MapPolygonField;
     
+   
     class Location extends Resource
     {
         public function fields(Request $request): array
@@ -345,8 +358,15 @@ class Location extends Resource
         ];
     }
 }
-
 ```
+
+----
+
+## Migration
+
+#### From 3.* to 4.*
+- Support for `matanyadaev/laravel-eloquent-spatial` versions 2 and 3 has been dropped. The package now exclusively supports version 4 and higher.
+- The `HasSpatialColumns` trait has been removed from the package. Instead, use the `HasSpatial` trait from the laravel-eloquent-spatial package.
 
 ----
 I am on an open-source journey 🚀, and I wish I could solely focus on my development path without worrying about my financial situation. However, as life is not perfect, I have to consider other factors.
