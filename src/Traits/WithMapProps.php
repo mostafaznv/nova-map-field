@@ -2,10 +2,9 @@
 
 namespace Mostafaznv\NovaMapField\Traits;
 
-use Illuminate\Support\Arr;
 use Mostafaznv\NovaMapField\DTOs\Capture;
-use Mostafaznv\NovaMapField\DTOs\MapSearchBoxType;
-use Mostafaznv\NovaMapField\DTOs\MapSearchProvider;
+use Mostafaznv\NovaMapField\Enums\MapSearchBoxType;
+use Mostafaznv\NovaMapField\Enums\MapSearchProvider;
 
 
 trait WithMapProps
@@ -328,14 +327,14 @@ trait WithMapProps
             'capture'               => $this->capture?->toArray(),
             'search'                => [
                 'isEnabled'             => $this->showSearchBox,
-                'provider'              => $this->searchProvider->getValue(),
+                'provider'              => $this->searchProvider->value,
                 'apiKey'                => $this->searchProviderApiKey,
                 'withAutocomplete'      => $this->searchAutocomplete,
                 'autocompleteMinLength' => $this->searchAutocompleteMinLength,
                 'autocompleteTimeout'   => $this->searchAutocompleteTimeout,
                 'language'              => $this->searchLanguage,
                 'placeholder'           => $this->searchPlaceholder,
-                'boxType'               => $this->searchBoxType->getValue(),
+                'boxType'               => $this->searchBoxType->value,
                 'resultLimit'           => $this->searchResultLimit,
                 'resultKeepOpen'        => $this->searchResultKeepOpen
             ],

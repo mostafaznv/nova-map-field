@@ -46,7 +46,7 @@ class MapPointField extends Field
             }
         }
 
-        $this->storeScreenshot($request, $requestAttribute, $model, $attribute);
+        $this->storeScreenshot($request, $requestAttribute, $model);
     }
 
     public function resolve($resource, $attribute = null): void

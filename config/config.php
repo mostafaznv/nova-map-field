@@ -1,5 +1,8 @@
 <?php
 
+use Mostafaznv\NovaMapField\Enums\MapSearchBoxType;
+use Mostafaznv\NovaMapField\Enums\MapSearchProvider;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -219,7 +222,7 @@ return [
         |
         */
 
-        'provider' => \Mostafaznv\NovaMapField\DTOs\MapSearchProvider::OSM(),
+        'provider' => MapSearchProvider::OSM,
 
         /*
         |--------------------------------------------------------------------------
@@ -297,7 +300,7 @@ return [
         |
         */
 
-        'box-type' => \Mostafaznv\NovaMapField\DTOs\MapSearchBoxType::TEXT_FIELD(),
+        'box-type' => MapSearchBoxType::TEXT_FIELD,
 
         /*
         |--------------------------------------------------------------------------

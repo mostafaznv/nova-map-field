@@ -8,7 +8,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait CapturesScreenshot
 {
-    private function storeScreenshot(NovaRequest $request, $requestAttribute, $model, $attribute): void
+    private function storeScreenshot(NovaRequest $request, $requestAttribute, $model): void
     {
         $requestAttribute = "$requestAttribute.image";
 

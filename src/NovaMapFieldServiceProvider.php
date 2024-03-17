@@ -5,6 +5,7 @@ namespace Mostafaznv\NovaMapField;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 
+
 class NovaMapFieldServiceProvider extends ServiceProvider
 {
     public function register(): void

@@ -21,6 +21,7 @@ class Capture
         return new self($column, $width, $height);
     }
 
+
     public function maxZoom(int $maxZoom): self
     {
         $this->maxZoom = $maxZoom;
