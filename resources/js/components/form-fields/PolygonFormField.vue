@@ -21,7 +21,7 @@
             </ol-tile-layer>
 
             <ol-vector-layer :styles="vectorStyle">
-                <ol-source-vector ref="source" :features.sync="zones">
+                <ol-source-vector ref="source">
                     <ol-interaction-modify
                         v-if="isEditable && !exportable"
                         @modifyend="onModifyEnd"
@@ -149,10 +149,12 @@ export default {
         },
 
         initZones() {
-            this.zones = new GeoJSON().readFeatures(this.geoJsonObject)
+            const zones = new GeoJSON().readFeatures(this.geoJsonObject)
 
-            if (this.zones.length) {
-                this.selectedFeatures.push(this.zones[0])
+            if (zones.length) {
+                this.selectedFeatures.push(zones[0])
+
+                this.$refs.source.source.addFeatures(zones)
             }
         },
 
