@@ -95,6 +95,7 @@ async function setValue() {
         await map.value.initCenter()
 
         if (props.field.mapType === 'POLYGON' || props.field.mapType === 'MULTI_POLYGON') {
+            await map.value.clearZones()
             await map.value.initZones()
         }
 

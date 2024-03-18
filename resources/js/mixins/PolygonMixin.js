@@ -64,6 +64,11 @@ export default {
             this.isDirty = true
         },
 
+        async clearZones(fast = true) {
+            this.selectedFeatures = []
+            await this.$refs.source.source.clear(fast)
+        },
+
         onDrawEnd(event) {
             const geometry = event.feature.getGeometry()
 

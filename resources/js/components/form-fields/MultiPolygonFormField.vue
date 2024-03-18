@@ -96,7 +96,7 @@ export default {
         'field', 'readonly'
     ],
     expose: [
-        'initCenter', 'initZones', 'capture', 'isDirty'
+        'initCenter', 'initZones', 'clearZones', 'capture', 'isDirty'
     ],
     data() {
         return {
