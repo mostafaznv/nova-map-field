@@ -5,6 +5,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
+            :key="key"
         />
 
         <polygon-form-field
@@ -12,6 +13,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
+            :key="key"
         />
 
         <multi-polygon-form-field
@@ -19,6 +21,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
+            :key="key"
         />
     </div>
 </template>
@@ -46,6 +49,7 @@ const props = defineProps({
 })
 
 const map = ref(null)
+const key = ref(1)
 const currentField = ref(props.field)
 const config = ref({
     enabled: false,
@@ -95,6 +99,7 @@ async function setValue() {
         await map.value.initCenter()
 
         if (props.field.mapType === 'POLYGON' || props.field.mapType === 'MULTI_POLYGON') {
+            await map.value.clearZones()
             await map.value.initZones()
         }
 
@@ -108,6 +113,7 @@ async function capture() {
     }
 
     const res = await map.value?.capture()
+    key.value++
 
     if (res.file) {
         emit('update:modelValue', res.file)

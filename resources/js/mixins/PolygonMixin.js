@@ -10,7 +10,6 @@ export default {
         return {
             isDirty: false,
             fieldValue: '',
-            zones: [],
             selectedFeatures: new Collection(),
             drawIsEnabled: true,
             modifyIsEnabled: false,
@@ -65,10 +64,16 @@ export default {
             this.isDirty = true
         },
 
+        async clearZones(fast = true) {
+            this.selectedFeatures = []
+            await this.$refs.source.source.clear(fast)
+        },
+
         onDrawEnd(event) {
             const geometry = event.feature.getGeometry()
 
-            this.zones.push(event.feature)
+            // this.zones.push(event.feature)
+            // this.$refs.source.source.addFeature(event.feature)
             this.selectedFeatures.push(event.feature)
 
             this.drawIsEnabled = false
@@ -92,7 +97,17 @@ export default {
         }
     },
     created() {
-        this.initZones()
+        this.$nextTick(async () => {
+            await new Promise(resolve => setTimeout(resolve, 50))
+
+            try {
+                this.initZones()
+            }
+            catch (e) {
+                console.warn('error on initZones')
+                console.error(e)
+            }
+        })
 
         const selectConditions = inject('ol-selectconditions')
         this.selectCondition = selectConditions.click
