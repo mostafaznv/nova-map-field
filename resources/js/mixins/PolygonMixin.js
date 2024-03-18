@@ -100,7 +100,13 @@ export default {
         this.$nextTick(async () => {
             await new Promise(resolve => setTimeout(resolve, 50))
 
-            this.initZones()
+            try {
+                this.initZones()
+            }
+            catch (e) {
+                console.warn('error on initZones')
+                console.error(e)
+            }
         })
 
         const selectConditions = inject('ol-selectconditions')
