@@ -65,9 +65,17 @@ Therefore, if you decide to use my packages, please kindly consider making a don
             Schema::create('locations', function (Blueprint $table) {
                 $table->id();
                 $table->string('title', 150);
-                $table->geometry('location', subtype: 'point')->nullable();
+                
+                # laravel 10
+                $table->point('location')->nullable();
                 $table->polygon('area')->nullable();
                 $table->multiPolygon('areas')->nullable();
+                
+                # laravel 11 and higher
+                $table->geometry('location', subtype: 'point')->nullable();
+                $table->geometry('area', subtype: 'polygon')->nullable();
+                $table->geometry('areas', subtype: 'multipolygon')->nullable();
+   
                 $table->timestamps();
             });
         }
