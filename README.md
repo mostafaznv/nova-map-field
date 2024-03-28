@@ -65,7 +65,7 @@ Therefore, if you decide to use my packages, please kindly consider making a don
             Schema::create('locations', function (Blueprint $table) {
                 $table->id();
                 $table->string('title', 150);
-                $table->point('location')->nullable();
+                $table->geometry('location', subtype: 'point')->nullable();
                 $table->polygon('area')->nullable();
                 $table->multiPolygon('areas')->nullable();
                 $table->timestamps();
