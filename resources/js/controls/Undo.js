@@ -38,8 +38,9 @@ class Undo extends Control {
         const map = this.getMap();
 
         map.getInteractions().getArray().forEach((obj) => {
-            if (obj.constructor.name === 'Draw2') {
+            try {
                 obj.removeLastPoint()
+            } catch (e) {
             }
         })
     }
