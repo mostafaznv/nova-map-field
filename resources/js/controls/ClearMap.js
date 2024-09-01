@@ -39,7 +39,7 @@ class ClearMap extends Control {
 
 
     clear() {
-        this.field.zones.pop()
+        this.field.$refs.source.source.clear()
         this.field.selectedFeatures.pop()
 
         this.field.onModifyEnd()
