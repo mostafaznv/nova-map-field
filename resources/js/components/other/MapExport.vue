@@ -70,7 +70,8 @@ watch(() => props.fieldValue, async (value) => {
         value = JSON.stringify([value])
     }
     else if (props.field.mapType === 'MULTI_POLYGON') {
-        value = JSON.parse(value.toString())
+        value = value.toString()
+        value = JSON.parse(value ? value : '[]')
 
         value = value.map(v => {
             return [v.map(vv => [vv[1], vv[0]])]
