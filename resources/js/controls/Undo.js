@@ -1,6 +1,7 @@
 import Control from 'ol/control/Control.js'
 import {CLASS_CONTROL, CLASS_UNSELECTABLE} from 'ol/css.js'
 import EventType from 'ol/events/EventType'
+import {Draw} from "ol/interaction";
 
 class Undo extends Control {
     constructor(options) {
@@ -38,9 +39,8 @@ class Undo extends Control {
         const map = this.getMap();
 
         map.getInteractions().getArray().forEach((obj) => {
-            try {
+            if (obj instanceof Draw) {
                 obj.removeLastPoint()
-            } catch (e) {
             }
         })
     }
