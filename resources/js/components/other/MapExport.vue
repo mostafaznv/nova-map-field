@@ -64,10 +64,17 @@ const config = ref({
 // watchers
 watch(() => props.fieldValue, async (value) => {
     if (props.field.mapType === 'POLYGON') {
-        value = JSON.parse(value.toString())
-        value = value.map(v => [v[1], v[0]])
+        value = value.toString()
 
-        value = JSON.stringify([value])
+        if (value) {
+            value = JSON.parse(value)
+            value = value.map(v => [v[1], v[0]])
+
+            value = JSON.stringify([value])
+        }
+        else {
+            value = JSON.stringify([])
+        }
     }
     else if (props.field.mapType === 'MULTI_POLYGON') {
         value = value.toString()
