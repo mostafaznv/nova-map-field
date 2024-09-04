@@ -1,7 +1,7 @@
 import Control from 'ol/control/Control.js'
 import {CLASS_CONTROL, CLASS_UNSELECTABLE} from 'ol/css.js'
 import EventType from 'ol/events/EventType'
-import {Draw} from "ol/interaction";
+import {Draw} from 'ol/interaction'
 
 class Undo extends Control {
     constructor(options) {
