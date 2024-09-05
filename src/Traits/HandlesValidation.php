@@ -4,10 +4,10 @@ namespace Mostafaznv\NovaMapField\Traits;
 
 use Illuminate\Support\Arr;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mostafaznv\NovaMapField\Fields\MapMultiPointField;
 use Mostafaznv\NovaMapField\Fields\MapMultiPolygonField;
 use Mostafaznv\NovaMapField\Fields\MapPointField;
 use Mostafaznv\NovaMapField\Fields\MapPolygonField;
-
 
 trait HandlesValidation
 {
@@ -19,7 +19,6 @@ trait HandlesValidation
     public array $mapCreationRules = [];
     public array $mapUpdateRules   = [];
 
-
     /**
      * @inheritDoc
      */
@@ -30,9 +29,8 @@ trait HandlesValidation
 
     /**
      * Validation rules for the screenshot file
-     *
      * @param array $rules
-     * @return MapPointField|MapPolygonField|MapMultiPolygonField|HandlesValidation
+     * @return MapPointField|MapMultiPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
      */
     public function screenshotRules(array $rules): self
     {
@@ -125,9 +123,8 @@ trait HandlesValidation
 
     /**
      * Set required rule for the map creation field
-     *
      * @param bool $status
-     * @return MapPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
+     * @return MapPointField|MapMultiPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
      */
     public function requiredOnCreate(bool $status = true): self
     {
@@ -146,9 +143,8 @@ trait HandlesValidation
 
     /**
      * Set required rule for the map update field
-     *
      * @param bool $status
-     * @return MapPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
+     * @return MapPointField|MapMultiPointField|MapMultiPolygonField|MapPolygonField|HandlesValidation
      */
     public function requiredOnUpdate(bool $status = true): self
     {
