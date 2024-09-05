@@ -369,7 +369,12 @@ class Location extends Resource
 ```
 
 ----
+## Deployment
 
+The map field uses a web worker that loads data from blob values, and if you have a strict Content-Security-Policy header (e.g. with `default 'none'`), you will need to give permission to load data via this method by adding a [`worker-src` directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/worker-src) to your CSP:
+
+    worker-src 'self' blob:;
+----
 ## Migration
 
 #### From 3.* to 4.*
