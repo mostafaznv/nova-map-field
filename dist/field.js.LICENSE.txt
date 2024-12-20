@@ -1,9 +1,9 @@
 /* Copyright 2015-2021 Esri. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 @preserve */
 
 /*!
-  * ol-contextmenu - v5.4.0
+  * ol-contextmenu - v5.5.0
   * https://github.com/jonataswalker/ol-contextmenu
-  * Built: Fri Mar 08 2024 12:11:47 GMT+0000 (Coordinated Universal Time)
+  * Built: Wed Aug 07 2024 12:29:18 GMT+0000 (Coordinated Universal Time)
   */
 
 /*!
@@ -20,10 +20,10 @@
  */
 
 /*!
- * ol-geocoder - v4.3.1
- * A geocoder extension compatible with OpenLayers v6.x, v7.x & v8.x
+ * ol-geocoder - v4.3.3
+ * A geocoder extension compatible with OpenLayers v6.x to v9.0
  * https://github.com/Dominique92/ol-geocoder
- * Built: 15/09/2023 16:57:41
+ * Built: 15/03/2024 08:57:04
  */
 
 /*!
@@ -47,7 +47,7 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
-/*! @license DOMPurify 2.4.5 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.5/LICENSE */
+/*! @license DOMPurify 2.4.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.7/LICENSE */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 

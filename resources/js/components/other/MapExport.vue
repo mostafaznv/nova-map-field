@@ -5,7 +5,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
-            :key="key"
+            :key="'point-' + key"
         />
 
         <polygon-form-field
@@ -13,7 +13,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
-            :key="key"
+            :key="'polygon' + key"
         />
 
         <multi-polygon-form-field
@@ -21,7 +21,7 @@
             ref="map"
             :field="currentField"
             :exportable="true"
-            :key="key"
+            :key="'multi-polygon' + key"
         />
     </div>
 </template>
