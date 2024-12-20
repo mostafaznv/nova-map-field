@@ -1,8 +1,8 @@
 <template>
     <div>
-        <DefaultButton @click="showModal" dusk="open-preview-button">
+        <Button @click="showModal" variant="outline" dusk="open-preview-button">
             {{ __('Show Details') }}
-        </DefaultButton>
+        </Button>
 
         <Modal
             @close-via-escape="closeModal"
@@ -30,8 +30,13 @@
 </template>
 
 <script>
+import {Button} from 'laravel-nova-ui'
+
 export default {
     name: 'LocationDetailModal',
+    components: {
+        Button
+    },
     data() {
         return {
             modal: false
