@@ -13,6 +13,7 @@
                     :field="currentField"
                     :resource-id="resourceId"
                     :resource-name="resourceName"
+                    :readonly="currentField.readonly"
                 />
 
                 <polygon-form-field
@@ -22,6 +23,7 @@
                     :field="currentField"
                     :resource-id="resourceId"
                     :resource-name="resourceName"
+                    :readonly="currentField.readonly"
                 />
 
                 <multi-polygon-form-field
@@ -31,6 +33,7 @@
                     :field="currentField"
                     :resource-id="resourceId"
                     :resource-name="resourceName"
+                    :readonly="currentField.readonly"
                 />
             </div>
 
