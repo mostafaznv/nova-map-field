@@ -163,6 +163,8 @@ export default {
 
                 this.$refs.source.source.addFeatures(zones)
             }
+
+            this.fitMap()
         },
 
         onModifyEnd() {

@@ -1,4 +1,5 @@
 import {Collection} from 'ol'
+import {createEmpty, extend, buffer, containsExtent} from 'ol/extent'
 import {Fill, Stroke, Style} from 'ol/style'
 import {altKeyOnly, shiftKeyOnly} from 'ol/events/condition'
 import {getCenter} from 'ol/extent'
@@ -94,7 +95,32 @@ export default {
             this.shiftKeyIsDown = shiftKeyOnly(evt)
 
             return this.field.transform.isEnabled && !this.isDrawable && this.altKeyIsDown
-        }
+        },
+
+        fitMap() {
+            const features = this.$refs.source.source.getFeatures()
+
+            if (features.length) {
+                const currentExtent = this.$refs.map.map.getView().calculateExtent()
+                const combinedExtent = features.reduce(
+                    (ex, f) => extend(ex, f.getGeometry().getExtent()),
+                    createEmpty()
+                )
+
+                const paddedExtent = buffer(combinedExtent, 30)
+
+
+                if (containsExtent(currentExtent, paddedExtent)) {
+                    return
+                }
+
+                this.$refs.map.map.getView().fit(
+                    combinedExtent, {
+                        padding: [30, 30, 30, 30],
+                    }
+                )
+            }
+        },
     },
     created() {
         this.$nextTick(async () => {
