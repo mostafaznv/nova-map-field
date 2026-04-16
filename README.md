@@ -33,7 +33,7 @@ Therefore, if you decide to use my packages, please kindly consider making a don
 | Laravel       | PHP    | Nova Map Field                                                  |
 |---------------|--------|-----------------------------------------------------------------|
 | ^8.0 - ^9.0   | ^8.0.2 | [^3.0](https://github.com/mostafaznv/nova-map-field/tree/3.2.0) |
-| ^10.0 - ^11.0 | ^8.1   | ^4.0 (latest)                                                   |
+| ^10.0 - ^13.0 | ^8.1   | ^4.0 (latest)                                                   |
 
 
 
