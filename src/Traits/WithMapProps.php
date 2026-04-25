@@ -84,14 +84,18 @@ trait WithMapProps
         $this->showDetailButton = $config['show-detail-button'];
 
         $this->showSearchBox = $searchConfig['enable'];
-        $this->searchProvider = $searchConfig['provider'];
+        $this->searchProvider = $searchConfig['provider'] instanceof MapSearchProvider
+            ? $searchConfig['provider']
+            : MapSearchProvider::from($searchConfig['provider']);
         $this->searchProviderApiKey = $searchConfig['api-key'];
         $this->searchAutocomplete = $searchConfig['autocomplete'];
         $this->searchAutocompleteMinLength = $searchConfig['autocomplete-min-length'];
         $this->searchAutocompleteTimeout = $searchConfig['autocomplete-timeout'];
         $this->searchLanguage = $searchConfig['language'];
         $this->searchPlaceholder = __($searchConfig['placeholder']);
-        $this->searchBoxType = $searchConfig['box-type'];
+        $this->searchBoxType = $searchConfig['box-type'] instanceof MapSearchBoxType
+            ? $searchConfig['box-type']
+            : MapSearchBoxType::from($searchConfig['box-type']);
         $this->searchResultLimit = $searchConfig['limit'];
         $this->searchResultKeepOpen = $searchConfig['keep-open'];
 
